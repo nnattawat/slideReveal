@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en" class="no-js">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>jQuery plugin</title>
+    <style type="text/css">
+      * {
+        padding: 0px;
+        margin: 0px;
+      }
+      body {
+        background-color: #f1f1f1;
+      }
+      body div{
+        padding: 10px;
+      }
+      #slider{
+        background-color: gray;
+        color: white;
+      }
+    </style>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../src/slidereveal.js"></script>
+  </head>
+  <body>
+    <div id="slider">Hello World!!</div>
+    <div>
+      Adipiscing in turpis, adipiscing porta massa. Ridiculus urna diam. Ridiculus dignissim aliquet! Mid in lorem platea mus egestas lectus rhoncus odio phasellus, tristique, nisi ultricies aliquet, sit magna cursus dolor.
+
+      Velit! Odio? Aenean est ultricies. Tortor adipiscing urna ridiculus cras enim dignissim ac aliquam scelerisque quis sit a ac, eu turpis pid odio mattis. Odio in in tincidunt massa.
+
+      Integer? Enim augue et, ultricies? Integer nunc odio, elit pellentesque tincidunt? Quis amet augue ridiculus, natoque nec platea porttitor? Tempor aliquet non, dolor, sed ultrices dignissim duis, mauris, augue.
+    </div>
+    <script type="text/javascript">
+    	$(function(){
+        $("#slider").slideReveal({
+          width: 100,
+          // push: false
+        });
+    	});
+
+      /*
+      Then you call:
+      $("#slider").slideReveal("show");
+      $("#slider").slideReveal("hide");
+      */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "slidereveal",
+  "title": "Slide Reveal",
+  "description": "Show content on the top|bottom|left|right of the page",
+  "version": "1.0.0",
+  "homepage": "https://github.com/nnattawat/slideReveal",
+  "author": {
+    "name": "Nattawat Nonsung",
+    "url": "https://github.com/nnattawat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nnattawat/slideReveal"
+  },
+  "bugs": "",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1"
+  },
+  "keywords": [
+    "jquery-plugin"
+  ]
+}
