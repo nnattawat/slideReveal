@@ -1,6 +1,6 @@
 # Slide Reveal
 
-Show content on the top|bottom|left|right of the page
+Show content by sliding from the top|bottom|left|right of the page
 
 ## Getting Started
 
@@ -13,10 +13,17 @@ In your web page:
 
 ```html
 <script src="jquery.js"></script>
-<script src="dist/slidereveal.min.js"></script>
+<script src="dist/jquery.slidereveal.min.js"></script>
 <script>
-jQuery(function($) {
-  $.awesome(); // "awesome"
+$(function($) {
+	<div id="slider">Hello World!!</div>
+  $("#slider").slideReveal();
+  /*
+  * Then to show content, run:
+  * slider.slideReveal("show");
+  * And to hide, run:
+  * slider.slideReveal("hide");
+  */
 });
 </script>
 ```
