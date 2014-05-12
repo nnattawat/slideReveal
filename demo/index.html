@@ -35,10 +35,18 @@
     </div>
     <script type="text/javascript">
     	$(function(){
-        $("#slider").slideReveal({
+        var slider = $("#slider").slideReveal({
           width: 100,
           // push: false
         });
+
+        setTimeout(function(){
+          slider.slideReveal("show");
+        }, 1000);
+
+        setTimeout(function(){
+          slider.slideReveal("hide");
+        }, 3000);
     	});
 
       /*
