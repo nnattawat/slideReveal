@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         banner: '<%= banner %>'
       },
       dist: {
-        src: '<%= concat.dist.dest %>',
+        src: '<%= concat.dist.src %>',
         dest: 'dist/jquery.<%= pkg.name %>.min.js'
       }
     },
