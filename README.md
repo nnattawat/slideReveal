@@ -17,7 +17,7 @@ In your web page:
 <script>
 $(function($) {
 	<div id="slider">Hello World!!</div>
-  $("#slider").slideReveal();
+  var slider = $("#slider").slideReveal();
   /*
   * Then to show content, run:
   * slider.slideReveal("show");
