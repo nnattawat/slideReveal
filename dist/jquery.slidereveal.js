@@ -1,11 +1,6 @@
-/*
- * slideReveal
- * 
- *
- * Copyright (c) 2014 Nattawat Nonsung
- * Licensed under the MIT license.
- */
-
+/*! slidereveal - v1.0.0 - 2014-05-13
+* https://github.com/nnattawat/slidereveal
+* Copyright (c) 2014 Nattawat Nonsung; Licensed MIT */
 (function ($) {
   // Define default settings
   var settings = {
