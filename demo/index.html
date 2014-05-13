@@ -72,11 +72,17 @@
     	$(function(){
         slider = $("#slider").slideReveal({
           // width: 100,
-          // push: false,
+          push: false,
           position: "right",
-          // speed: 600,
+          speed: 600,
           trigger: $("#trigger"),
-          autoEscape: false
+          // autoEscape: false,
+          shown: function(obj){
+            console.log(obj);
+          },
+          hidden: function(obj){
+            console.log(obj);
+          }
         });
 
         // setTimeout(function(){

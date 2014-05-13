@@ -14,7 +14,9 @@
     position: "left",
     speed: 300, //ms
     trigger: undefined,
-    autoEscape: true
+    autoEscape: true,
+    shown: function(){},
+    hidden: function(){}
   };
 
   // Collection method.
@@ -34,10 +36,17 @@
         this.css(settings.position, "0px");
         $("body").css(settings.position, sidePosition);
         this.data("slide-reveal", true);
+
+        setTimeout(function(){
+          settings.shown(self);
+        }, settings.speed);
       }else if(options === "hide"){
         this.css(settings.position, "-"+sidePosition);
         $("body").css(settings.position, "0px");
         this.data("slide-reveal", false);
+        setTimeout(function(){
+          settings.hidden(self);
+        }, settings.speed);
       }
     }else{
       settings = $.extend(settings, options);
