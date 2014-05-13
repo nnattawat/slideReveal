@@ -7,17 +7,7 @@
  */
 
 (function ($) {
-  // Define default settings
-  var settings = {
-    width: 250,
-    push: true,
-    position: "left",
-    speed: 300, //ms
-    trigger: undefined,
-    autoEscape: true,
-    shown: function(){},
-    hidden: function(){}
-  };
+  var settings = [];
 
   // Collection method.
   $.fn.slideReveal = function (options) {
@@ -27,54 +17,83 @@
 
     var paddingRight = this.css('padding-left');
     paddingRight = +paddingRight.substring(0, paddingRight.length -2);
-
-    var sidePosition = (settings.width+paddingLeft+paddingRight)+"px";
+    var setting, sidePosition;
 
     if(options !== undefined && typeof(options) === "string"){
+      var settingIndex = this.data("setting-index");
+      setting = settings[settingIndex];
+
+      sidePosition = (setting.width+paddingLeft+paddingRight)+"px";
 
       if(options === "show"){
-        this.css(settings.position, "0px");
-        $("body").css(settings.position, sidePosition);
+        this.css(setting.position, "0px");
+        if(setting.push){
+          if(setting.position==="left"){
+            $("body").css("left", sidePosition);
+          }else{
+            $("body").css("left", "-"+sidePosition);
+          }
+        }
         this.data("slide-reveal", true);
 
         setTimeout(function(){
-          settings.shown(self);
-        }, settings.speed);
+          setting.shown(self);
+        }, setting.speed);
       }else if(options === "hide"){
-        this.css(settings.position, "-"+sidePosition);
-        $("body").css(settings.position, "0px");
+        if(setting.push){
+          $("body").css("left", "0px");          
+        }
+        this.css(setting.position, "-"+sidePosition);
         this.data("slide-reveal", false);
         setTimeout(function(){
-          settings.hidden(self);
-        }, settings.speed);
+          setting.hidden(self);
+        }, setting.speed);
       }
     }else{
-      settings = $.extend(settings, options);
-      var transition = settings.position+" ease "+settings.speed+"ms";
+      // Define default setting
+      setting = {
+        width: 250,
+        push: true,
+        position: "left",
+        speed: 300, //ms
+        trigger: undefined,
+        autoEscape: true,
+        shown: function(){},
+        hidden: function(){}
+      };
+      setting = $.extend(setting, options);
+      // Keep this setting to array so that it won't be overwritten if slideReveal() is called again.
+      settings.push(setting);
+      this.data("setting-index", settings.length - 1);
+
+      sidePosition = (setting.width+paddingLeft+paddingRight)+"px";
+
+      var transition = "all ease "+setting.speed+"ms";
       this.css({
           position: "fixed",
-          width: settings.width,
+          width: setting.width,
           transition: transition,
           height: "100%",
           top: "0px"
         })
-        .css(settings.position, "-"+sidePosition);
+        .css(setting.position, "-"+sidePosition);
 
       // Add close stage
       this.data("slide-reveal", false);
 
-      if(settings.push){
+      if(setting.push){
         $("body").css({
             position: "relative",
             "overflow-x": "hidden",
-            transition: transition
-          })
-          .css(settings.position, "0px");
+            transition: transition,
+            left: "0px"
+          });
+          // .css(setting.position, "0px");
       }
 
       // Attach trigger using click event
-      if(settings.trigger && settings.trigger.length > 0){
-        settings.trigger.click(function(){
+      if(setting.trigger && setting.trigger.length > 0){
+        setting.trigger.click(function(){
           if(!self.data("slide-reveal")){ // Show
             self.slideReveal("show");
           }else{ // Hide
@@ -84,7 +103,7 @@
       }
 
       // Bind hide event to ESC
-      if(settings.autoEscape){
+      if(setting.autoEscape){
         $(document).keydown(function(e){
           if($('input:focus, textarea:focus').length === 0){
             if(e.keyCode === 27 && self.data("slide-reveal")){ //ESC
