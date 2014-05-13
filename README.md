@@ -7,7 +7,7 @@ Show content by sliding from the top|bottom|left|right of the page
 Download the [production version][min] or the [development version][max].
 
 [min]: https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.min.js
-[max]: https://raw.githubusercontent.com/nnattawat/slidereveal/master/src/slidereveal.js
+[max]: https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.js
 
 In your web page:
 
