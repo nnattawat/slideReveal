@@ -1,6 +1,6 @@
 # Slide Reveal
 
-Show content by sliding from the top|bottom|left|right of the page
+Show side panel by sliding from the left or right of the page.
 
 ## Getting Started
 
@@ -30,7 +30,7 @@ $(function($) {
 The plugin does not add any CSS to your side panel. So, you need to style it yourself for a nice panel or a beautiful navigation.
 
 ## Documentation and Examples
-Please refer to its [github.io](http://nnattawat.github.io/slideReveal).
+Please refer to its [github.io](http://nnattawat.github.io/slideReveal)
 
 ## Release History
 _(Nothing yet)_
