@@ -76,8 +76,8 @@
       // Bind hide event to ESC
       if(settings.autoEscape){
         $(document).keydown(function(e){
-          if($('input:focus, textarea:focus').length == 0){
-            if(e.keyCode == 27 && self.data("slide-reveal")){ //ESC
+          if($('input:focus, textarea:focus').length === 0){
+            if(e.keyCode === 27 && self.data("slide-reveal")){ //ESC
               self.slideReveal("hide");
             }
           }

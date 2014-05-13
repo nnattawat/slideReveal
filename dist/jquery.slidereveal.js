@@ -7,11 +7,14 @@
     width: 250,
     push: true,
     position: "left",
-    speed: 300 //ms
+    speed: 300, //ms
+    trigger: undefined,
+    autoEscape: true
   };
 
   // Collection method.
   $.fn.slideReveal = function (options) {
+    var self = this;
     var paddingLeft = this.css('padding-left');
       paddingLeft = +paddingLeft.substring(0, paddingLeft.length -2);
 
@@ -25,9 +28,11 @@
       if(options === "show"){
         this.css(settings.position, "0px");
         $("body").css(settings.position, sidePosition);
+        this.data("slide-reveal", true);
       }else if(options === "hide"){
         this.css(settings.position, "-"+sidePosition);
         $("body").css(settings.position, "0px");
+        this.data("slide-reveal", false);
       }
     }else{
       settings = $.extend(settings, options);
@@ -40,12 +45,38 @@
         })
         .css(settings.position, "-"+sidePosition);
 
+      // Add close stage
+      this.data("slide-reveal", false);
+
       if(settings.push){
         $("body").css({
             position: "relative",
+            "overflow-x": "hidden",
             transition: transition
           })
           .css(settings.position, "0px");
+      }
+
+      // Attach trigger using click event
+      if(settings.trigger && settings.trigger.length > 0){
+        settings.trigger.click(function(){
+          if(!self.data("slide-reveal")){ // Show
+            self.slideReveal("show");
+          }else{ // Hide
+            self.slideReveal("hide");
+          }
+        });
+      }
+
+      // Bind hide event to ESC
+      if(settings.autoEscape){
+        $(document).keydown(function(e){
+          if($('input:focus, textarea:focus').length === 0){
+            if(e.keyCode === 27 && self.data("slide-reveal")){ //ESC
+              self.slideReveal("hide");
+            }
+          }
+        });
       }
     }
 
