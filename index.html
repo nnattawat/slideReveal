@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery - SlideReveal</title>
+    <link href="asset/css/bootstrap.min.css" rel="stylesheet">
+    <link href="asset/css/index.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <!--a href="https://github.com/nnattawat/fixtop"><img style="position: fixed; z-index: 1001; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a-->
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <button type="button" id="menu-btn" class="navbar-left" >
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <button id="download-btn" class="btn btn-default navbar-btn navbar-right"><span class="glyphicon glyphicon-cloud-download"></span></button>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!--div id="download-bar">
+      <a href="https://github.com/nnattawat/fixtop/zipball/master" class="btn btn-primary"><span class="glyphicon glyphicon-cloud-download"></span> Download .zip</a>
+      <a href="https://github.com/nnattawat/fixtop/tarball/master" class="btn btn-primary"><span class="glyphicon glyphicon-cloud-download"></span> Download .tar</a>
+      <a href="https://github.com/nnattawat/fixtop" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View on Github</a>
+    </div-->
+    <div id="menu-bar">
+      <h3>
+        SlideReveal<br/>
+        <small><span class="glyphicon glyphicon-info-sign"></span> Press ESC to close</small>
+      </h3>
+      <a href="#include">How to include</a>
+      <a href="#use">How to use</a>
+      <a href="#option">Options</a>
+    </div>
+    <div class="jumbotron">
+      <div class="container">
+        <h2>SlideReveal</h2>
+        <p>A jQuery plugin to show content by sliding from the left or right of the page.<br/><strong><span class="text-info">Click the menu icon on the top bar for an example.</span></strong></p>
+      </div>
+    </div>
+    <div class="container">
+      <section id="include">
+        <h3>How to include</h3>
+        <!-- <p>Simply include jquery.js and jquery.fixtop.js you have downloaded.</p>
+        <pre>&lt;script src="http://code.jquery.com/jquery-[latest].min.js"&gt;<br/>&lt;script src="jquery.fixtop.js"&gt;</pre> -->
+      </section>
+
+      <section id="use">
+        <h3>How to use</h3>
+        <!-- <p>Create a <code>&lt;div&gt;</code> element in a HTML file</p>
+        <pre>&lt;div id='fixtop'&gt;&lt;/div&gt;</pre>
+        <p>Then, call the jQuery <code>fixtop()</code> method in JS</p>
+        <pre>$('#fixtop').fixtop();</pre> -->
+      </section>
+      <section id="option">
+        <h3>Options</h3>
+        <!-- <table class="table table-bordered">
+          <thead>
+            <th>Attribute</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>marginTop</td>
+              <td><code>integer</code></td>
+              <td>0</td>
+              <td>Margin top of the fixed-top element, applied once it is fixed to the top of a page</td>
+            </tr>
+            <tr>
+              <td>zIndex</td>
+              <td><code>integer</code></td>
+              <td>1000</td>
+              <td>z-index of the fixed-top element, applied once it is fixed to the top of a page</td>
+            </tr>
+            <tr>
+              <td>fixed</td>
+              <td><code>function()</code></td>
+              <td>-</td>
+              <td>Fuction that will be called after the element become fixed. It receive a jQeury object of the fixed-top element as a parameter</td>
+            </tr>
+            <tr>
+              <td>unfixed</td>
+              <td><code>function()</code></td>
+              <td>-</td>
+              <td>Fuction that will be called after the element become normal. Use mostly for reverting fixed fuction()</td>
+            </tr>
+            <tr>
+              <td>fixedWidth</td>
+              <td><code>string</code></td>
+              <td>100%</td>
+              <td>A value of width css attribute, that will be set once the element become fixed. This is mainly used when your nav bar does not have width 100%. For example, you can set to <code>'none'</code> if a bar is side bar with <code>float: left;</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>For example, you can set options as:</p>
+        <pre>
+  $("#fixtop").fixtop({
+    marginTop: 10,
+    zIndex: 2000,
+    fixed: function(el){
+      el.addClass("barChanged");
+    },
+    unfixed: function(el){
+      el.removeClass("barChanged");
+    },
+  });</pre> -->
+    </section>
+    </div>
+    <footer>
+      <div class="container">
+      SlideReveal is maintained by <a href="https://github.com/nnattawat">nnattawat</a>
+      </div>
+    </footer>
+    <script src="asset/js/jquery-1.10.2.min.js"></script>
+    <script src="asset/js/bootstrap.min.js"></script>
+    <script src="asset/js/jquery.slidereveal.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        var slider = $("#menu-bar").slideReveal({
+          // width: 100,
+          // push: false,
+          position: "left",
+          // speed: 600,
+          trigger: $("#menu-btn"),
+          // autoEscape: false,
+          // shown: function(obj){
+          //   console.log(obj);
+          // },
+          // hidden: function(obj){
+          //   console.log(obj);
+          // }
+        });
+
+        // $("#download-bar").slideReveal({
+        //   position: "right",
+        //   trigger: $("#download-btn"),
+        // });
+      });
+
+      // Google Analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-50628297-1', 'nnattawat.github.io');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
