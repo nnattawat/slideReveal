@@ -14,25 +14,23 @@ In your web page:
 ```html
 <script src="jquery.js"></script>
 <script src="dist/jquery.slidereveal.min.js"></script>
+
+<div id="slider">Hello World!!</div>
+<button id="trigger">Hello World!!</button>
+
 <script>
 $(function($) {
-	<div id="slider">Hello World!!</div>
-  var slider = $("#slider").slideReveal();
-  /*
-  * Then to show content, run:
-  * slider.slideReveal("show");
-  * And to hide, run:
-  * slider.slideReveal("hide");
-  */
+  var slider = $("#slider").slideReveal({
+  	trigger: $("#trigger")
+  });
 });
 </script>
 ```
 
-## Documentation
-_(Coming soon)_
+The plugin does not add any CSS to your side panel. So, you need to style it yourself for a nice panel or a beautiful navigation.
 
-## Examples
-_(Coming soon)_
+## Documentation and Examples
+Please refer to its [github.io](http://nnattawat.github.io/slideReveal).
 
 ## Release History
 _(Nothing yet)_
