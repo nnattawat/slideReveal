@@ -1,3 +1,7 @@
+* {
+  box-sizing: content-box;          
+}
+
 #menu-btn{
 	position: relative;
 	float: right;
@@ -28,11 +32,8 @@
 }
 
 #menu-bar{
-	/*padding: 10px;*/
 	background-color: #BDBDBD;
 	color: #fff;
-	/*box-shadow: 10px 0 15px -6px #585858 inset;*/
-	/*border-left: 1px solid #2E2E2E;*/
 }
 #menu-bar h3{
 	background-color: #2E2E2E;
@@ -54,18 +55,31 @@
 	background-color: #D8D8D8;
 }
 
-.jumbotron{
-	/*background-color: #252525;
-	color: #fff;*/
+#download-bar{
+	background-color: #E6E6E6;
+	padding: 10px;
+	box-shadow: 10px 0 15px -6px #585858 inset;
 }
-/*#585858*/
 
-footer{
-	padding: 20px;
-	margin-top: 30px;
-	background-color: #eee;
-	color: #333;
-	border-top: 1px #ccc solid;
+#download-bar div.well{
+	margin-top: 10px;
+}
+
+.side-panel{
+	background-color: #E6E6E6;
+	padding: 10px;
+}
+
+.side-panel-left{
+	box-shadow: -5px 0 15px -6px #585858 inset;
+}
+
+.side-panel-right{
+	box-shadow: 5px 0 15px -6px #585858 inset;
+}
+
+.jumbotron{
+	margin-bottom: 0px;
 }
 
 .navbar{
@@ -75,4 +89,8 @@ footer{
 
 section{
 	padding-top: 20px;
+}
+
+#sample-1-btn{
+	margin-bottom: 10px;
 }

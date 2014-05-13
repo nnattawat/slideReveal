@@ -10,7 +10,9 @@
 
   </head>
   <body>
-    <!--a href="https://github.com/nnattawat/fixtop"><img style="position: fixed; z-index: 1001; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a-->
+    <a href="https://github.com/nnattawat/slideReveal">
+    <img style="position: absolute; z-index: 1001; top: 52px; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
+    </a>
     <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -19,14 +21,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <button id="download-btn" class="btn btn-default navbar-btn navbar-right"><span class="glyphicon glyphicon-cloud-download"></span></button>
+        <button id="download-btn" class="btn btn-default navbar-btn navbar-right"><span class="glyphicon glyphicon-cloud-download"></span> Download</button>
       </div><!-- /.container-fluid -->
     </nav>
-    <!--div id="download-bar">
-      <a href="https://github.com/nnattawat/fixtop/zipball/master" class="btn btn-primary"><span class="glyphicon glyphicon-cloud-download"></span> Download .zip</a>
-      <a href="https://github.com/nnattawat/fixtop/tarball/master" class="btn btn-primary"><span class="glyphicon glyphicon-cloud-download"></span> Download .tar</a>
-      <a href="https://github.com/nnattawat/fixtop" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View on Github</a>
-    </div-->
+    <div id="download-bar">
+      <a href="https://github.com/nnattawat/slideReveal/zipball/master" class="btn btn-primary btn-lg btn-block"><span class="glyphicon glyphicon-cloud-download"></span> Download .zip</a>
+      <a href="https://github.com/nnattawat/slideReveal/tarball/master" class="btn btn-primary btn-lg btn-block"><span class="glyphicon glyphicon-cloud-download"></span> Download .tar</a>
+      <a href="https://github.com/nnattawat/slideReveal" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-eye-open"></span> View on Github</a>
+      <div class="well"><h5>SlideReveal is maintained by <a href="https://github.com/nnattawat">nnattawat</a></h5></div>
+    </div>
     <div id="menu-bar">
       <h3>
         SlideReveal<br/>
@@ -34,30 +37,51 @@
       </h3>
       <a href="#include">How to include</a>
       <a href="#use">How to use</a>
+      <a href="#method">Methods</a>
       <a href="#option">Options</a>
     </div>
     <div class="jumbotron">
       <div class="container">
         <h2>SlideReveal</h2>
-        <p>A jQuery plugin to show content by sliding from the left or right of the page.<br/><strong><span class="text-info">Click the menu icon on the top bar for an example.</span></strong></p>
+        <p>A jQuery plugin to show side panel by sliding from the left or right of the page.<br/><strong><span class="text-info">To see an example, click buttons on the top bar.</span></strong></p>
       </div>
     </div>
     <div class="container">
       <section id="include">
         <h3>How to include</h3>
-        <!-- <p>Simply include jquery.js and jquery.fixtop.js you have downloaded.</p>
-        <pre>&lt;script src="http://code.jquery.com/jquery-[latest].min.js"&gt;<br/>&lt;script src="jquery.fixtop.js"&gt;</pre> -->
+        <p>Download <a href="https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.min.js">compressed</a> or <a href="https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.js">uncompressed</a> version of SlideReveal.
+        Then, simply include <code>jquery.js</code> and <code>jquery.slidereveal.min.js</code> you have downloaded.</p>
+        <pre>&lt;script src="http://code.jquery.com/jquery-[latest].min.js"&gt;<br/>&lt;script src="jquery.slidereveal.min.js"&gt;</pre>
       </section>
 
       <section id="use">
         <h3>How to use</h3>
-        <!-- <p>Create a <code>&lt;div&gt;</code> element in a HTML file</p>
-        <pre>&lt;div id='fixtop'&gt;&lt;/div&gt;</pre>
-        <p>Then, call the jQuery <code>fixtop()</code> method in JS</p>
-        <pre>$('#fixtop').fixtop();</pre> -->
+        <p>In your HTML, create a <code>&lt;div&gt;</code> element for the side panel and the triggering element such as <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>.</p>
+        <pre>&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
+&lt;button id='trigger'&gt;Toggle&lt;/button&gt;
+</pre>
+        <p>Then, call the jQuery <code>slideReveal()</code> method in JS.</p>
+        <pre>$('#slider').slideReveal({
+  trigger: $("#trigger")
+});</pre>
+        <p>Here we go! You can result as:</p>
+        <div id="sample-1" class="side-panel side-panel-left"><span class="lead">Hello World!!</span><br/><span class="text-muted">By default, you can press ESC to close</span></div>
+        <button class="btn btn-default" id="sample-1-btn">Toggle</button>
+        <div class="alert alert-info"><strong>Head's up!</strong> The plugin <strong>does not</strong> add any CSS to your side panel. So, you need to style it yourself to get a nice shadowing panel or a beautiful navigation like in the example from the top bar.</div>
+        <div class="alert alert-warning">
+          <p><strong>Warning!</strong> If you add <code>padding</code> to a side panel and you use Bootstrap, the plugin won't work properly. The hot fix for now is to the following CSS.</p>
+          <pre>* {
+  box-sizing: content-box; 
+}</pre>
+        </div>
+      </section>
+      <section id="method">
+        <h3>Methods</h3>
+        TBD.
       </section>
       <section id="option">
         <h3>Options</h3>
+        TBD.
         <!-- <table class="table table-bordered">
           <thead>
             <th>Attribute</th>
@@ -112,11 +136,6 @@
   });</pre> -->
     </section>
     </div>
-    <footer>
-      <div class="container">
-      SlideReveal is maintained by <a href="https://github.com/nnattawat">nnattawat</a>
-      </div>
-    </footer>
     <script src="asset/js/jquery-1.10.2.min.js"></script>
     <script src="asset/js/bootstrap.min.js"></script>
     <script src="asset/js/jquery.slidereveal.js"></script>
@@ -137,10 +156,14 @@
           // }
         });
 
-        // $("#download-bar").slideReveal({
-        //   position: "right",
-        //   trigger: $("#download-btn"),
-        // });
+        $("#download-bar").slideReveal({
+          position: "right",
+          trigger: $("#download-btn")
+        });
+
+        $("#sample-1").slideReveal({
+          trigger: $("#sample-1-btn")
+        })
       });
 
       // Google Analytics
