@@ -50,7 +50,8 @@
           position: "fixed",
           width: settings.width,
           transition: transition,
-          height: "100%"
+          height: "100%",
+          top: "0px"
         })
         .css(settings.position, "-"+sidePosition);
 
