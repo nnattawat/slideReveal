@@ -13,7 +13,8 @@
     push: true,
     position: "left",
     speed: 300, //ms
-    trigger: undefined
+    trigger: undefined,
+    autoEscape: true
   };
 
   // Collection method.
@@ -68,6 +69,17 @@
             self.slideReveal("show");
           }else{ // Hide
             self.slideReveal("hide");
+          }
+        });
+      }
+
+      // Bind hide event to ESC
+      if(settings.autoEscape){
+        $(document).keydown(function(e){
+          if($('input:focus, textarea:focus').length == 0){
+            if(e.keyCode == 27 && self.data("slide-reveal")){ //ESC
+              self.slideReveal("hide");
+            }
           }
         });
       }
