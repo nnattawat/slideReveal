@@ -34,6 +34,7 @@
         setTimeout(function(){
           setting.shown(self);
         }, setting.speed);
+        return self;
       }else if(options === "hide"){
         if(setting.push){
           $("body").css("left", "0px");          
@@ -43,6 +44,7 @@
         setTimeout(function(){
           setting.hidden(self);
         }, setting.speed);
+        return self;
       }
     }else{
       // Define default setting
