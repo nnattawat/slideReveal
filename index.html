@@ -64,9 +64,9 @@
         <pre>$('#slider').slideReveal({
   trigger: $("#trigger")
 });</pre>
-        <p>Here we go! You can result as:</p>
+        <p>Here we go! You can get result as:</p>
         <div id="sample-1" class="side-panel side-panel-left"><span class="lead">Hello World!!</span><br/><span class="text-muted">By default, you can press ESC to close</span></div>
-        <button class="btn btn-default" id="sample-1-btn">Toggle</button>
+        <button class="btn btn-info " id="sample-1-btn">Toggle</button>
         <div class="alert alert-info"><strong>Head's up!</strong> The plugin <strong>does not</strong> add any CSS to your side panel. So, you need to style it yourself to get a nice shadowing panel or a beautiful navigation like in the example from the top bar.</div>
         <div class="alert alert-warning">
           <p><strong>Warning!</strong> If you add <code>padding</code> to a side panel and you use Bootstrap, the plugin won't work properly. The hot fix for now is to the following CSS.</p>
@@ -77,7 +77,20 @@
       </section>
       <section id="method">
         <h3>Methods</h3>
-        TBD.
+        <p>After you execute <code>slideReveal()</code> especially without specifying the trigger option, you can show or hide the side panel programmatically.</p>
+        <p>HTML code:</p>
+        <pre>&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
+</pre>
+        <p>JS code:</p>
+        <pre>var slider = $('#slider').slideReveal(); // slideReveal return $('#slider')</pre>
+        <p>Then to show it, you can call:</p>
+        <pre>slider.slideReveal("show") // which is equal to $('#slider').slideReveal("show");</pre>
+        <p>To hide it, call:</p>
+        <pre>slider.slideReveal("hide") // which is equal to $('#slider').slideReveal("hide");</pre>
+        <div>
+          <button id="show-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("show")</code></button>
+          <button id="hide-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("hide")</code></button>
+        </div>
       </section>
       <section id="option">
         <h3>Options</h3>
@@ -141,6 +154,11 @@
     <script src="asset/js/jquery.slidereveal.js"></script>
     <script type="text/javascript">
       $(function(){
+        // $("#menu-bar a").click(function(){
+        //   var id = $(this).attr("href").substring(1);
+        //   $("html, body").animate({ scrollTop: $("#"+id).offset().top }, 1000);
+        // });
+
         var slider = $("#menu-bar").slideReveal({
           // width: 100,
           // push: false,
@@ -161,9 +179,16 @@
           trigger: $("#download-btn")
         });
 
-        $("#sample-1").slideReveal({
+        var sample1 = $("#sample-1").slideReveal({
           trigger: $("#sample-1-btn")
         })
+        $("#show-manually").click(function(){
+          sample1.slideReveal("show");
+        });
+        $("#hide-manually").click(function(){
+          sample1.slideReveal("hide");
+        });
+
       });
 
       // Google Analytics
