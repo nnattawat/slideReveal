@@ -91,6 +91,9 @@ section{
 	padding-top: 20px;
 }
 
+section:last-child{
+	margin-bottom: 30px;
+}
 #sample-1-btn{
 	margin-bottom: 10px;
 }
