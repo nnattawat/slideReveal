@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>jQuery - SlideReveal</title>
     <link href="asset/css/bootstrap.min.css" rel="stylesheet">
+    <link href="asset/css/prettify.css" rel="stylesheet">
     <link href="asset/css/index.css" rel="stylesheet">
 
   </head>
@@ -51,42 +52,47 @@
         <h3>How to include</h3>
         <p>Download <a href="https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.min.js">compressed</a> or <a href="https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.js">uncompressed</a> version of SlideReveal.
         Then, simply include <code>jquery.js</code> and <code>jquery.slidereveal.min.js</code> you have downloaded.</p>
-        <pre>&lt;script src="http://code.jquery.com/jquery-[latest].min.js"&gt;<br/>&lt;script src="jquery.slidereveal.min.js"&gt;</pre>
+        <pre class="prettyprint">&lt;script src="http://code.jquery.com/jquery-[latest].min.js"&gt;<br/>&lt;script src="jquery.slidereveal.min.js"&gt;</pre>
       </section>
 
       <section id="use">
         <h3>How to use</h3>
         <p>In your HTML, create a <code>&lt;div&gt;</code> element for the side panel and the triggering element such as <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>.</p>
-        <pre>&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
+        <pre class="prettyprint">&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
 &lt;button id='trigger'&gt;Toggle&lt;/button&gt;
 </pre>
         <p>Then, call the jQuery <code>slideReveal()</code> method in JS.</p>
-        <pre>$('#slider').slideReveal({
+        <pre class="prettyprint">$('#slider').slideReveal({
   trigger: $("#trigger")
 });</pre>
         <p>Here we go! You can get result as:</p>
         <div id="sample-1" class="side-panel side-panel-left"><span class="lead">Hello World!!</span><br/><span class="text-muted">By default, you can press ESC to close</span></div>
         <button class="btn btn-info " id="sample-1-btn">Toggle</button>
         <div class="alert alert-info"><strong>Head's up!</strong> The plugin <strong>does not</strong> add any fancy CSS to your side panel. So, you need to style it yourself to get a nice shadowing panel or a beautiful navigation like in the example from the top bar.</div>
-        <div class="alert alert-warning">
-          <p><strong>Warning!</strong> If you add <code>padding</code> to a side panel and you use Bootstrap, the plugin won't work properly. The hot fix for now is to add the following CSS.</p>
-          <pre>* {
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">Warning!</h3>
+          </div>
+          <div class="panel-body">
+            If you add <code>padding</code> to a side panel and you use <strong>Bootstrap</strong>, the plugin <strong>won't work</strong> properly. The hot fix for now is to add the following CSS.</p>
+          <pre class="prettyprint">* {
   box-sizing: content-box; 
 }</pre>
+          </div>
         </div>
       </section>
       <section id="method">
         <h3>Methods</h3>
         <p>After you execute <code>slideReveal()</code> especially without specifying the trigger option, you can show or hide the side panel programmatically.</p>
         <p>HTML code:</p>
-        <pre>&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
+        <pre class="prettyprint">&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
 </pre>
         <p>JS code:</p>
-        <pre>var slider = $('#slider').slideReveal(); // slideReveal return $('#slider')</pre>
+        <pre class="prettyprint">var slider = $('#slider').slideReveal(); // slideReveal return $('#slider')</pre>
         <p>Then to show it, you can call:</p>
-        <pre>slider.slideReveal("show") // which is equal to $('#slider').slideReveal("show");</pre>
+        <pre class="prettyprint">slider.slideReveal("show") // which is equal to $('#slider').slideReveal("show");</pre>
         <p>To hide it, call:</p>
-        <pre>slider.slideReveal("hide") // which is equal to $('#slider').slideReveal("hide");</pre>
+        <pre class="prettyprint">slider.slideReveal("hide") // which is equal to $('#slider').slideReveal("hide");</pre>
         <div>
           <button id="show-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("show")</code></button>
           <button id="hide-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("hide")</code></button>
@@ -136,7 +142,7 @@
           </tbody>
         </table>
         <p>For example, you can set options as:</p>
-        <pre>
+        <pre class="prettyprint">
   $("#fixtop").fixtop({
     marginTop: 10,
     zIndex: 2000,
@@ -152,8 +158,11 @@
     <script src="asset/js/jquery-1.10.2.min.js"></script>
     <script src="asset/js/bootstrap.min.js"></script>
     <script src="asset/js/jquery.slidereveal.js"></script>
+    <script src="asset/js/prettify.js"></script>
     <script type="text/javascript">
       $(function(){
+        prettyPrint();
+
         // $("#menu-bar a").click(function(){
         //   var id = $(this).attr("href").substring(1);
         //   $("html, body").animate({ scrollTop: $("#"+id).offset().top }, 1000);
