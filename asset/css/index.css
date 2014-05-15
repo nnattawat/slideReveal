@@ -36,6 +36,9 @@
 	color: #fff;
 	z-index: 1002;
 }
+.left-shadow-overlay{
+	box-shadow: 10px 0 15px 10px #585858;
+}
 #menu-bar h3{
 	background-color: #2E2E2E;
 	font-size: 1.9em;
@@ -91,7 +94,9 @@
 .side-panel-left{
 	box-shadow: -5px 0 15px -6px #585858 inset;
 }
-
+.side-panel-left-overlay{
+	box-shadow: -10px 0 15px 10px #585858;
+}
 .side-panel-right{
 	box-shadow: 5px 0 15px -6px #585858 inset;
 }

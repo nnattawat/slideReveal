@@ -215,7 +215,7 @@ $("slider").slideReveal({
   push: false
 });
 </pre>
-         <div id="sample-3" class="side-panel">
+         <div id="sample-3" class="side-panel ">
           <span class="lead">Hello World!!</span><br/>
           <span class="text-muted">Press <kbd>ESC</kbd> to close</span>
         </div>
@@ -296,9 +296,11 @@ $("slider").slideReveal({
           // autoEscape: false,
           shown: function(obj){
             obj.find(".handle").html('<span class="glyphicon glyphicon-chevron-right"></span>');
+            obj.addClass("left-shadow-overlay");
           },
           hidden: function(obj){
             obj.find(".handle").html('<span class="glyphicon glyphicon-chevron-left"></span>');
+            obj.removeClass("left-shadow-overlay");
           }
         });
 
