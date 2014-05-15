@@ -11,9 +11,10 @@
 
   </head>
   <body>
-    <a href="https://github.com/nnattawat/slideReveal">
-    <!-- <img style="position: absolute; z-index: 1001; top: 0px; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"> -->
-    </a>
+
+    <!-- <a href="https://github.com/nnattawat/slideReveal">
+    <img style="position: absolute; z-index: 1001; top: 0px; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
+    </a> -->
     <!-- <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
         <button type="button" id="menu-btn" class="navbar-right" >
@@ -36,7 +37,7 @@
       </div>
       <h3>
         SlideReveal<br/>
-        <small><span class="glyphicon glyphicon-info-sign"></span> Press ESC to close</small>
+        <small><span class="glyphicon glyphicon-info-sign"></span> Press <kbd>ESC</kbd> to close</small>
       </h3>
       <a href="#include">How to include</a>
       <a href="#use">How to use</a>
@@ -64,7 +65,7 @@
         <h3>How to use</h3>
         <p>In your HTML, create a <code>&lt;div&gt;</code> element for the side panel and the triggering element such as <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>.</p>
         <pre class="prettyprint">&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
-&lt;button id='trigger'&gt;Toggle&lt;/button&gt;
+&lt;button id='trigger'&gt;Trigger&lt;/button&gt;
 </pre>
         <p>Then, call the jQuery <code>slideReveal()</code> method in JS.</p>
         <pre class="prettyprint">$('#slider').slideReveal({
@@ -74,7 +75,7 @@
         <div id="sample-1" class="side-panel side-panel-left">
           <span class="lead">Hello World!!</span>
         </div>
-        <button class="btn btn-info " id="sample-1-btn">Toggle</button>
+        <button class="btn btn-info " id="sample-1-btn">Trigger</button>
         <div class="panel panel-info">
           <div class="panel-heading">
             <h3 class="panel-title">With the default settings</h3>
@@ -83,7 +84,7 @@
             <ul>
               <li>Panel slides from the left.</li>
               <li>It pushes the main content away.</li>
-              <li>You can press ESC to close.</li>
+              <li>You can press <kbd>ESC</kbd> to close.</li>
             </ul>
           </div>
         </div>
@@ -128,51 +129,149 @@
           </thead>
           <tbody>
             <tr>
-              <td>marginTop</td>
+              <td>width</td>
               <td><code>integer</code></td>
-              <td>0</td>
-              <td>Margin top of the fixed-top element, applied once it is fixed to the top of a page</td>
+              <td><code>250</code></td>
+              <td>Width of a side panel.</td>
             </tr>
             <tr>
-              <td>zIndex</td>
+              <td>push</td>
+              <td><code>boolean</code></td>
+              <td><code>true</code></td>
+              <td>Whether you want a panel to push the main content. Set it to <code>false</code> results to the menu on the right, for example.</td>
+            </tr>
+            <tr>
+              <td>position</td>
+              <td><code>String</code></td>
+              <td><code>left</code></td>
+              <td>Where you want to show a side panel from. You can only set it to either <code>left</code> or <code>right</code>.</td>
+            </tr>
+            <tr>
+              <td>speed</td>
               <td><code>integer</code></td>
-              <td>1000</td>
-              <td>z-index of the fixed-top element, applied once it is fixed to the top of a page</td>
+              <td><code>300</code></td>
+              <td>Animating time for showing a side panel. The unit is millisecond.</td>
             </tr>
             <tr>
-              <td>fixed</td>
-              <td><code>function()</code></td>
+              <td>trigger</td>
+              <td>jQuery DOM Selection</td>
+              <td><code>undefined</code></td>
+              <td>DOM element that you want to use as a trigger to show and hide a panel. If you don't specify, please see <a href="#method">the method section</a>.</td>
+            </tr>
+            <tr>
+              <td>autoEscape</td>
+              <td><code>boolean</code></td>
+              <td><code>true</code></td>
+              <td>Whether you want to enable users to use <kbd>ESC</kbd> to hide a panel.</td>
+            </tr>
+            <tr>
+              <td>shown</td>
+              <td><code>function</code></td>
               <td>-</td>
-              <td>Fuction that will be called after the element become fixed. It receive a jQeury object of the fixed-top element as a parameter</td>
+              <td>Function that you want to trigger once a panel is fully shown. It passes one parameter which is jQuery object of you side panel.</td>
             </tr>
             <tr>
-              <td>unfixed</td>
-              <td><code>function()</code></td>
+              <td>hidden</td>
+              <td><code>function</code></td>
               <td>-</td>
-              <td>Fuction that will be called after the element become normal. Use mostly for reverting fixed fuction()</td>
-            </tr>
-            <tr>
-              <td>fixedWidth</td>
-              <td><code>string</code></td>
-              <td>100%</td>
-              <td>A value of width css attribute, that will be set once the element become fixed. This is mainly used when your nav bar does not have width 100%. For example, you can set to <code>'none'</code> if a bar is side bar with <code>float: left;</code></td>
+              <td>Function that you want to trigger once a panel is fully hidden. It passes one parameter which is jQuery object of you side panel.</td>
             </tr>
           </tbody>
+          </tbody>
         </table>
-        <p>For example, you can set options as:</p>
-        <pre class="prettyprint">
-  $("#fixtop").fixtop({
-    marginTop: 10,
-    zIndex: 2000,
-    fixed: function(el){
-      el.addClass("barChanged");
-    },
-    unfixed: function(el){
-      el.removeClass("barChanged");
-    },
-  });</pre>
+        <h4>Examples with options</h4>
+        <p>With the same HTML code:</p>
+        <pre class="prettyprint">&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
+&lt;button id='trigger'&gt;Trigger&lt;/button&gt;
+</pre>
+        <p>We can change options to create:</p>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Right Panel</h3>
+          </div>
+          <div class="panel-body">
+            <pre class="prettyprint">
+$("slider").slideReveal({
+  trigger: $("#trigger"),
+  position: "right"
+});
+</pre>
+         <div id="sample-2" class="side-panel side-panel-right">
+          <span class="lead">Hello World!!</span><br/>
+          <span class="text-muted">Press <kbd>ESC</kbd> to close</span>
+        </div>
+        <button class="btn btn-info " id="sample-2-btn">Trigger</button>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Overlay Panel</h3>
+          </div>
+          <div class="panel-body">
+            <pre class="prettyprint">
+$("slider").slideReveal({
+  trigger: $("#trigger"),
+  push: false
+});
+</pre>
+         <div id="sample-3" class="side-panel">
+          <span class="lead">Hello World!!</span><br/>
+          <span class="text-muted">Press <kbd>ESC</kbd> to close</span>
+        </div>
+        <button class="btn btn-info " id="sample-3-btn">Trigger</button>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Wide panel <span class="text-muted">without auto escape</span></h3>
+          </div>
+          <div class="panel-body">
+            <pre class="prettyprint">
+$("slider").slideReveal({
+  trigger: $("#trigger"),
+  autoEscape: false,
+  width: 500,
+  speed: 700
+});
+</pre>
+         <div id="sample-4" class="side-panel side-panel-left">
+          <span class="lead">Hello World!!</span>
+        </div>
+        <button class="btn btn-info " id="sample-4-btn">Trigger</button>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Attach events to a panel</h3>
+          </div>
+          <div class="panel-body">
+            <pre class="prettyprint">
+$("slider").slideReveal({
+  trigger: $("#trigger"),
+  shown: function(slider){
+    alert("After opened!");
+  },
+  hidden: function(slider){
+    alert("After closed!");
+  }
+});
+</pre>
+         <div id="sample-5" class="side-panel side-panel-left">
+          <span class="lead">Hello World!!</span>
+        </div>
+        <button class="btn btn-info " id="sample-5-btn">Trigger</button>
+          </div>
+        </div>
     </section>
     </div>
+    <footer>
+      <div class="container">
+        <h5><a href="https://github.com/nnattawat/slideReveal">SlideReveal</a> is maintained by <a href="https://github.com/nnattawat">nnattawat</a></h5>
+      </div>
+    </footer>
     <script src="asset/js/jquery-1.10.2.min.js"></script>
     <script src="asset/js/bootstrap.min.js"></script>
     <script src="asset/js/jquery.slidereveal.js"></script>
@@ -218,6 +317,31 @@
           sample1.slideReveal("hide");
         });
 
+        $("#sample-2").slideReveal({
+          trigger: $("#sample-2-btn"),
+          position: "right"
+        });
+
+        $("#sample-3").slideReveal({
+          trigger: $("#sample-3-btn"),
+          push: false
+        });
+
+        $("#sample-4").slideReveal({
+          trigger: $("#sample-4-btn"),
+          autoEscape: false,
+          width: 500,
+          // speed: 700
+        });
+        $("#sample-5").slideReveal({
+          trigger: $("#sample-5-btn"),
+          shown: function(slider){
+            alert("After opened!");
+          },
+          hidden: function(slider){
+            alert("After closed!");
+          }
+        });
       });
 
       // Google Analytics
