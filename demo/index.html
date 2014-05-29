@@ -16,7 +16,7 @@
       body div{
         padding: 10px;
       }
-      #slider{
+      .slider{
         background-color: gray;
         color: white;
       }
@@ -30,11 +30,11 @@
     <script src="../src/slidereveal.js"></script>
   </head>
   <body>
-    <div id="slider">
+    <div id="slider" class="slider">
       Hello World!!
       <!-- <button>&times;</button> -->
     </div>
-    <div id="slider2">
+    <div id="slider2" class="slider">
       Hello World!!
       <!-- <button>&times;</button> -->
     </div>
@@ -97,6 +97,7 @@
           speed: 600,
           trigger: $("#trigger2"),
           // autoEscape: false,
+          top: 100
         });
 
         // setTimeout(function(){

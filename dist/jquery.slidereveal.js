@@ -1,3 +1,6 @@
+/*! slidereveal - v1.0.0 - 2014-05-29
+* https://github.com/nnattawat/slidereveal
+* Copyright (c) 2014 Nattawat Nonsung; Licensed MIT */
 /*! slidereveal - v1.0.0 - 2014-05-14
 * https://github.com/nnattawat/slidereveal
 * Copyright (c) 2014 Nattawat Nonsung; Licensed MIT */
@@ -56,7 +59,8 @@
         trigger: undefined,
         autoEscape: true,
         shown: function(){},
-        hidden: function(){}
+        hidden: function(){},
+        top: 0
       };
       setting = $.extend(setting, options);
       // Keep this setting to array so that it won't be overwritten if slideReveal() is called again.
@@ -71,7 +75,7 @@
           width: setting.width,
           transition: transition,
           height: "100%",
-          top: "0px"
+          top: setting.top
         })
         .css(setting.position, "-"+sidePosition);
 
