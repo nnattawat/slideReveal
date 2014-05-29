@@ -82,7 +82,13 @@
           speed: 600,
           trigger: $("#trigger"),
           // autoEscape: false,
+          show: function(obj){
+            console.log(obj);
+          },
           shown: function(obj){
+            console.log(obj);
+          },
+          hide: function(obj){
             console.log(obj);
           },
           hidden: function(obj){

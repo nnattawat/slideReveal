@@ -22,6 +22,7 @@
 
       if(options === "show"){
         this.css(setting.position, "0px");
+        setting.show(this);
         if(setting.push){
           if(setting.position==="left"){
             $("body").css("left", sidePosition);
@@ -36,8 +37,9 @@
         }, setting.speed);
         return self;
       }else if(options === "hide"){
+        setting.hide(this);
         if(setting.push){
-          $("body").css("left", "0px");          
+          $("body").css("left", "0px");
         }
         this.css(setting.position, "-"+sidePosition);
         this.data("slide-reveal", false);
@@ -55,8 +57,10 @@
         speed: 300, //ms
         trigger: undefined,
         autoEscape: true,
+        show: function(){},
         shown: function(){},
         hidden: function(){},
+        hide: function(){},
         top: 0
       };
       setting = $.extend(setting, options);
