@@ -21,8 +21,8 @@
       sidePosition = (setting.width+paddingLeft+paddingRight)+"px";
 
       if(options === "show"){
-        this.css(setting.position, "0px");
         setting.show(this);
+        this.css(setting.position, "0px");
         if(setting.push){
           if(setting.position==="left"){
             $("body").css("left", sidePosition);
