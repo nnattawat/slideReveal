@@ -1,4 +1,4 @@
-/*! slidereveal - v1.0.0 - 2014-05-14
+/*! slidereveal - v1.0.0 - 2014-05-29
 * https://github.com/nnattawat/slidereveal
 * Copyright (c) 2014 Nattawat Nonsung; Licensed MIT */
 (function ($) {
@@ -21,6 +21,7 @@
       sidePosition = (setting.width+paddingLeft+paddingRight)+"px";
 
       if(options === "show"){
+        setting.show(this);
         this.css(setting.position, "0px");
         if(setting.push){
           if(setting.position==="left"){
@@ -36,8 +37,9 @@
         }, setting.speed);
         return self;
       }else if(options === "hide"){
+        setting.hide(this);
         if(setting.push){
-          $("body").css("left", "0px");          
+          $("body").css("left", "0px");
         }
         this.css(setting.position, "-"+sidePosition);
         this.data("slide-reveal", false);
@@ -55,8 +57,11 @@
         speed: 300, //ms
         trigger: undefined,
         autoEscape: true,
+        show: function(){},
         shown: function(){},
-        hidden: function(){}
+        hidden: function(){},
+        hide: function(){},
+        top: 0
       };
       setting = $.extend(setting, options);
       // Keep this setting to array so that it won't be overwritten if slideReveal() is called again.
@@ -71,7 +76,7 @@
           width: setting.width,
           transition: transition,
           height: "100%",
-          top: "0px"
+          top: setting.top
         })
         .css(setting.position, "-"+sidePosition);
 

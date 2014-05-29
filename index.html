@@ -88,7 +88,7 @@
             </ul>
           </div>
         </div>
-        <div class="alert alert-info"><strong>Head's up!</strong> The plugin <strong>does not</strong> add any fancy CSS to your side panel. So, you need to style it yourself to get a nice shadowing panel or a beautiful navigation like in the example from the top bar.</div>
+        <div class="alert alert-info"><strong>Head's up!</strong> The plugin <strong>does not</strong> add any fancy CSS to your side panel. So, you need to style it yourself to get a nice shadowing panel or a beautiful navigation like in the example from the top right.</div>
         <div class="panel panel-danger">
           <div class="panel-heading">
             <h3 class="panel-title">Warning!</h3>
@@ -165,10 +165,28 @@
               <td>Whether you want to enable users to use <kbd>ESC</kbd> to hide a panel.</td>
             </tr>
             <tr>
+              <td>top</td>
+              <td><code>integer</code></td>
+              <td>0</td>
+              <td>Starting position from the top of the window. This option may be useful if you have a fixed topbar, for instance.</td>
+            </tr>
+            <tr>
+              <td>show</td>
+              <td><code>function</code></td>
+              <td>-</td>
+              <td>Function that you want to trigger before a panel starts revealing. It passes one parameter which is jQuery object of you side panel.</td>
+            </tr>
+            <tr>
               <td>shown</td>
               <td><code>function</code></td>
               <td>-</td>
               <td>Function that you want to trigger once a panel is fully shown. It passes one parameter which is jQuery object of you side panel.</td>
+            </tr>
+            <tr>
+              <td>hide</td>
+              <td><code>function</code></td>
+              <td>-</td>
+              <td>Function that you want to trigger before a panel starts hiding. It passes one parameter which is jQuery object of you side panel.</td>
             </tr>
             <tr>
               <td>hidden</td>
@@ -256,6 +274,12 @@ $("slider").slideReveal({
   },
   hidden: function(slider){
     alert("After closed!");
+  },
+  show: function(slider){
+    alert("Before open!");
+  },
+  hide: function(slider){
+    alert("Before close!");
   }
 });
 </pre>
@@ -342,6 +366,12 @@ $("slider").slideReveal({
           },
           hidden: function(slider){
             alert("After closed!");
+          },
+          show: function(slider){
+            alert("Before open!");
+          },
+          hide: function(slider){
+            alert("Before close!");
           }
         });
       });
