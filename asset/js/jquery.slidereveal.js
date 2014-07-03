@@ -1,11 +1,11 @@
-/*! slidereveal - v1.0.0 - 2014-05-29
+/*! slidereveal - v1.0.1 - 2014-07-03
 * https://github.com/nnattawat/slidereveal
 * Copyright (c) 2014 Nattawat Nonsung; Licensed MIT */
 (function ($) {
   var settings = [];
 
   // Collection method.
-  $.fn.slideReveal = function (options) {
+  $.fn.slideReveal = function (options, triggerEvents) {
     var self = this;
     var paddingLeft = this.css('padding-left');
       paddingLeft = +paddingLeft.substring(0, paddingLeft.length -2);
@@ -21,7 +21,7 @@
       sidePosition = (setting.width+paddingLeft+paddingRight)+"px";
 
       if(options === "show"){
-        setting.show(this);
+        if(triggerEvents === undefined || triggerEvents){ setting.show(this); }
         this.css(setting.position, "0px");
         if(setting.push){
           if(setting.position==="left"){
@@ -31,21 +31,24 @@
           }
         }
         this.data("slide-reveal", true);
-
-        setTimeout(function(){
-          setting.shown(self);
-        }, setting.speed);
+        if(triggerEvents === undefined || triggerEvents){
+          setTimeout(function(){
+            setting.shown(self);
+          }, setting.speed);
+        }
         return self;
       }else if(options === "hide"){
-        setting.hide(this);
+        if(triggerEvents === undefined || triggerEvents){ setting.hide(this); }
         if(setting.push){
           $("body").css("left", "0px");
         }
         this.css(setting.position, "-"+sidePosition);
         this.data("slide-reveal", false);
-        setTimeout(function(){
-          setting.hidden(self);
-        }, setting.speed);
+        if(triggerEvents === undefined || triggerEvents){
+          setTimeout(function(){
+            setting.hidden(self);
+          }, setting.speed);
+        }
         return self;
       }
     }else{

@@ -117,6 +117,12 @@
           <button id="show-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("show")</code></button>
           <button id="hide-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("hide")</code></button>
         </div>
+        <br/>
+        <p>
+          If you want to skip the callback functions: <code>show(), shown(), hide() and hidden()</code> mentioned in the next section, you can send <code>false</code> as the second parameter as,
+          <pre class="prettyprint">slider.slideReveal("show", false);
+slider.slideReveal("hide", false);</pre>
+        </p>
       </section>
       <section id="option">
         <h3>Options</h3>
