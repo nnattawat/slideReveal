@@ -1,5 +1,6 @@
 (function ($) {
-  var settings = [];
+  var settings = [],
+      clickSource;
 
   // Collection method.
   $.fn.slideReveal = function (options, triggerEvents) {
@@ -18,7 +19,7 @@
       sidePosition = (setting.width+paddingLeft+paddingRight)+"px";
 
       if(options === "show"){
-        if(triggerEvents === undefined || triggerEvents){ setting.show(this); }
+        if(triggerEvents === undefined || triggerEvents){ setting.show(this, clickSource); }
         this.css(setting.position, "0px");
         if(setting.push){
           if(setting.position==="left"){
@@ -30,12 +31,12 @@
         this.data("slide-reveal", true);
         if(triggerEvents === undefined || triggerEvents){
           setTimeout(function(){
-            setting.shown(self);
+            setting.shown(self, clickSource);
           }, setting.speed);
         }
         return self;
       }else if(options === "hide"){
-        if(triggerEvents === undefined || triggerEvents){ setting.hide(this); }
+        if(triggerEvents === undefined || triggerEvents){ setting.hide(this, clickSource); }
         if(setting.push){
           $("body").css("left", "0px");
         }
@@ -43,7 +44,7 @@
         this.data("slide-reveal", false);
         if(triggerEvents === undefined || triggerEvents){
           setTimeout(function(){
-            setting.hidden(self);
+            setting.hidden(self, clickSource);
           }, setting.speed);
         }
         return self;
@@ -96,6 +97,7 @@
       // Attach trigger using click event
       if(setting.trigger && setting.trigger.length > 0){
         setting.trigger.click(function(){
+          clickSource = $(this);
           if(!self.data("slide-reveal")){ // Show
             self.slideReveal("show");
           }else{ // Hide
