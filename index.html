@@ -74,6 +74,8 @@
         <p>Download <a href="https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.min.js">compressed</a> or <a href="https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.js">uncompressed</a> version of SlideReveal.
         Then, simply include <code>jquery.js</code> and <code>jquery.slidereveal.min.js</code> you have downloaded.</p>
         <pre class="prettyprint">&lt;script src="http://code.jquery.com/jquery-[latest].min.js"&gt;<br/>&lt;script src="jquery.slidereveal.min.js"&gt;</pre>
+        <p>Or install using bower</p>
+        <pre class="prettyprint">bower install slidereveal</pre>
       </section>
 
       <section id="use">
@@ -195,25 +197,25 @@ slider.slideReveal("hide", false);</pre>
               <td>show</td>
               <td><code>function</code></td>
               <td>-</td>
-              <td>Function that you want to trigger before a panel starts revealing. It passes one parameter which is jQuery object of you side panel.</td>
+              <td>Function that you want to trigger before a panel starts revealing. It passes two parameters, jQuery side panel and trigger objects respectively.</td>
             </tr>
             <tr>
               <td>shown</td>
               <td><code>function</code></td>
               <td>-</td>
-              <td>Function that you want to trigger once a panel is fully shown. It passes one parameter which is jQuery object of you side panel.</td>
+              <td>Function that you want to trigger once a panel is fully shown. It passes two parameters, jQuery side panel and trigger objects respectively</td>
             </tr>
             <tr>
               <td>hide</td>
               <td><code>function</code></td>
               <td>-</td>
-              <td>Function that you want to trigger before a panel starts hiding. It passes one parameter which is jQuery object of you side panel.</td>
+              <td>Function that you want to trigger before a panel starts hiding. It passes two parameters, jQuery side panel and trigger objects respectively</td>
             </tr>
             <tr>
               <td>hidden</td>
               <td><code>function</code></td>
               <td>-</td>
-              <td>Function that you want to trigger once a panel is fully hidden. It passes one parameter which is jQuery object of you side panel.</td>
+              <td>Function that you want to trigger once a panel is fully hidden. It passes two parameters, jQuery side panel and trigger objects respectively</td>
             </tr>
           </tbody>
           </tbody>
@@ -290,16 +292,16 @@ $("slider").slideReveal({
             <pre class="prettyprint">
 $("slider").slideReveal({
   trigger: $("#trigger"),
-  shown: function(slider){
+  shown: function(slider, trigger){
     alert("After opened!");
   },
-  hidden: function(slider){
+  hidden: function(slider, trigger){
     alert("After closed!");
   },
-  show: function(slider){
+  show: function(slider, trigger){
     alert("Before open!");
   },
-  hide: function(slider){
+  hide: function(slider, trigger){
     alert("Before close!");
   }
 });
