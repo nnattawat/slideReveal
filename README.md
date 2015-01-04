@@ -9,6 +9,8 @@ Download the [production version][min] or the [development version][max].
 [min]: https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.min.js
 [max]: https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.js
 
+Or install using bower.
+<pre>bower install slidereveal</pre>
 In your web page:
 
 ```html
