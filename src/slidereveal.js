@@ -1,6 +1,6 @@
 (function ($) {
-  var settings = [],
-      clickSource;
+  var settings = [];
+  var clickSource;
 
   // Collection method.
   $.fn.slideReveal = function (options, triggerEvents) {
@@ -12,44 +12,44 @@
     paddingRight = +paddingRight.substring(0, paddingRight.length -2);
     var setting, sidePosition;
 
-    if(options !== undefined && typeof(options) === "string"){
+    if (options !== undefined && typeof(options) === "string") {
       var settingIndex = this.data("setting-index");
       setting = settings[settingIndex];
 
-      sidePosition = (setting.width+paddingLeft+paddingRight)+"px";
+      sidePosition = (setting.width + paddingLeft + paddingRight) + "px";
 
-      if(options === "show"){
-        if(triggerEvents === undefined || triggerEvents){ setting.show(this, clickSource); }
+      if (options === "show") {
+        if (triggerEvents === undefined || triggerEvents) { setting.show(this, clickSource); }
         this.css(setting.position, "0px");
-        if(setting.push){
-          if(setting.position==="left"){
+        if (setting.push) {
+          if (setting.position==="left") {
             $("body").css("left", sidePosition);
-          }else{
+          } else {
             $("body").css("left", "-"+sidePosition);
           }
         }
         this.data("slide-reveal", true);
-        if(triggerEvents === undefined || triggerEvents){
-          setTimeout(function(){
+        if (triggerEvents === undefined || triggerEvents) {
+          setTimeout(function() {
             setting.shown(self, clickSource);
           }, setting.speed);
         }
         return self;
-      }else if(options === "hide"){
-        if(triggerEvents === undefined || triggerEvents){ setting.hide(this, clickSource); }
-        if(setting.push){
+      } else if (options === "hide") {
+        if (triggerEvents === undefined || triggerEvents) { setting.hide(this, clickSource); }
+        if (setting.push) {
           $("body").css("left", "0px");
         }
         this.css(setting.position, "-"+sidePosition);
         this.data("slide-reveal", false);
-        if(triggerEvents === undefined || triggerEvents){
+        if (triggerEvents === undefined || triggerEvents) {
           setTimeout(function(){
             setting.hidden(self, clickSource);
           }, setting.speed);
         }
         return self;
       }
-    }else{
+    } else {
       // Define default setting
       setting = {
         width: 250,
@@ -69,9 +69,9 @@
       settings.push(setting);
       this.data("setting-index", settings.length - 1);
 
-      sidePosition = (setting.width+paddingLeft+paddingRight)+"px";
+      sidePosition = (setting.width + paddingLeft + paddingRight) + "px";
 
-      var transition = "all ease "+setting.speed+"ms";
+      var transition = "all ease " + setting.speed + "ms";
       this.css({
           position: "fixed",
           width: setting.width,
@@ -84,33 +84,32 @@
       // Add close stage
       this.data("slide-reveal", false);
 
-      if(setting.push){
+      if (setting.push){
         $("body").css({
             position: "relative",
             "overflow-x": "hidden",
             transition: transition,
             left: "0px"
           });
-          // .css(setting.position, "0px");
       }
 
       // Attach trigger using click event
-      if(setting.trigger && setting.trigger.length > 0){
-        setting.trigger.click(function(){
+      if (setting.trigger && setting.trigger.length > 0) {
+        setting.trigger.click( function() {
           clickSource = $(this);
-          if(!self.data("slide-reveal")){ // Show
+          if (!self.data("slide-reveal")) { // Show
             self.slideReveal("show");
-          }else{ // Hide
+          } else { // Hide
             self.slideReveal("hide");
           }
         });
       }
 
       // Bind hide event to ESC
-      if(setting.autoEscape){
-        $(document).keydown(function(e){
-          if($('input:focus, textarea:focus').length === 0){
-            if(e.keyCode === 27 && self.data("slide-reveal")){ //ESC
+      if (setting.autoEscape) {
+        $(document).keydown( function(e) {
+          if ($('input:focus, textarea:focus').length === 0) {
+            if (e.keyCode === 27 && self.data("slide-reveal")) { //ESC
               self.slideReveal("hide");
             }
           }
