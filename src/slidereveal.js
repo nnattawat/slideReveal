@@ -5,22 +5,30 @@
   // Collection method.
   $.fn.slideReveal = function (options, triggerEvents) {
     var self = this;
-    var paddingLeft = this.css('padding-left');
-      paddingLeft = +paddingLeft.substring(0, paddingLeft.length -2);
+    var paddingLeft = self.css('padding-left');
+    paddingLeft = +paddingLeft.substring(0, paddingLeft.length -2);
 
-    var paddingRight = this.css('padding-left');
+    var paddingRight = self.css('padding-left');
     paddingRight = +paddingRight.substring(0, paddingRight.length -2);
     var setting, sidePosition;
 
     if (options !== undefined && typeof(options) === "string") {
-      var settingIndex = this.data("setting-index");
+      var settingIndex = self.data("setting-index");
       setting = settings[settingIndex];
 
       sidePosition = (setting.width + paddingLeft + paddingRight) + "px";
 
       if (options === "show") {
+        // show overlay
+        if (setting.overlay) {
+          $(".slide-reveal-overlay").show();
+        }
+
+        // trigger show() method
         if (triggerEvents === undefined || triggerEvents) { setting.show(this, clickSource); }
-        this.css(setting.position, "0px");
+
+        // slide the panel 
+        self.css(setting.position, "0px");
         if (setting.push) {
           if (setting.position==="left") {
             $("body").css("left", sidePosition);
@@ -28,7 +36,9 @@
             $("body").css("left", "-"+sidePosition);
           }
         }
-        this.data("slide-reveal", true);
+        self.data("slide-reveal", true);
+
+        // trigger shown() method
         if (triggerEvents === undefined || triggerEvents) {
           setTimeout(function() {
             setting.shown(self, clickSource);
@@ -36,14 +46,24 @@
         }
         return self;
       } else if (options === "hide") {
+        // trigger hide() method
         if (triggerEvents === undefined || triggerEvents) { setting.hide(this, clickSource); }
+
+        // hide the panel
         if (setting.push) {
           $("body").css("left", "0px");
         }
-        this.css(setting.position, "-"+sidePosition);
-        this.data("slide-reveal", false);
+        self.css(setting.position, "-"+sidePosition);
+        self.data("slide-reveal", false);
+
+        // trigger hidden() method
         if (triggerEvents === undefined || triggerEvents) {
           setTimeout(function(){
+            // hide overlay
+            if (setting.overlay) {
+              $(".slide-reveal-overlay").hide();
+            }
+
             setting.hidden(self, clickSource);
           }, setting.speed);
         }
@@ -62,17 +82,20 @@
         shown: function(){},
         hidden: function(){},
         hide: function(){},
-        top: 0
+        top: 0,
+        overlay: false,
+        "zIndex": 1049,
+        overlayColor: 'rgba(0,0,0,0.5)'
       };
       setting = $.extend(setting, options);
       // Keep this setting to array so that it won't be overwritten if slideReveal() is called again.
       settings.push(setting);
-      this.data("setting-index", settings.length - 1);
+      self.data("setting-index", settings.length - 1);
 
       sidePosition = (setting.width + paddingLeft + paddingRight) + "px";
 
       var transition = "all ease " + setting.speed + "ms";
-      this.css({
+      self.css({
           position: "fixed",
           width: setting.width,
           transition: transition,
@@ -81,8 +104,26 @@
         })
         .css(setting.position, "-"+sidePosition);
 
+      if (setting.overlay) {
+        self.css('z-index', setting.zIndex);
+        $("body").prepend("<div class='slide-reveal-overlay'></div>");
+        $(".slide-reveal-overlay")
+          .hide()
+          .css({
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+            'z-index': setting.zIndex - 1,
+            'background-color': setting.overlayColor,
+          }).click(function() {
+            self.slideReveal("hide");
+          });
+      }
+
       // Add close stage
-      this.data("slide-reveal", false);
+      self.data("slide-reveal", false);
 
       if (setting.push){
         $("body").css({
