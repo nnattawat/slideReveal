@@ -164,6 +164,24 @@ slider.slideReveal("hide", false);</pre>
               <td>Whether you want a panel to push the main content. Set it to <code>false</code> results to the menu on the right, for example.</td>
             </tr>
             <tr>
+              <td>overlay</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether you want to add the overlay to the main content.</td>
+            </tr>
+            <tr>
+              <td>overlayColor</td>
+              <td><code>String</code></td>
+              <td><code>rgba(0,0,0,0.5)</code></td>
+              <td>Valid <code>css</code> color value.</td>
+            </tr>
+            <tr>
+              <td>zIndex</td>
+              <td><code>integer</code></td>
+              <td><code>1049</code></td>
+              <td><code>z-index</code> of your side panel. In case you use <code>overlay</code>, the overlay's <code>z-index</code> will be set to the given value - 1.</td>
+            </tr>
+            <tr>
               <td>position</td>
               <td><code>String</code></td>
               <td><code>left</code></td>
@@ -253,7 +271,8 @@ $("slider").slideReveal({
             <pre class="prettyprint">
 $("slider").slideReveal({
   trigger: $("#trigger"),
-  push: false
+  push: false,
+  overlay: true
 });
 </pre>
          <div id="sample-3" class="side-panel ">
@@ -373,7 +392,8 @@ $("slider").slideReveal({
 
         $("#sample-3").slideReveal({
           trigger: $("#sample-3-btn"),
-          push: false
+          push: false,
+          overlay: true
         });
 
         $("#sample-4").slideReveal({
