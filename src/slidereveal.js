@@ -6,10 +6,10 @@
   $.fn.slideReveal = function (options, triggerEvents) {
     var self = this;
     var paddingLeft = self.css('padding-left');
-    paddingLeft = +paddingLeft.substring(0, paddingLeft.length -2);
+    paddingLeft = paddingLeft ? +paddingLeft.substring(0, paddingLeft.length - 2) : 0;
 
-    var paddingRight = self.css('padding-left');
-    paddingRight = +paddingRight.substring(0, paddingRight.length -2);
+    var paddingRight = self.css('padding-right');
+    paddingRight = paddingRight ? +paddingRight.substring(0, paddingRight.length - 2) : 0;
     var setting, sidePosition;
 
     if (options !== undefined && typeof(options) === "string") {

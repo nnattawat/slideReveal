@@ -1,6 +1,6 @@
-/*! slidereveal - v1.0.1 - 2015-11-01
+/*! slidereveal - v1.0.2 - 2016-01-04
 * https://github.com/nnattawat/slidereveal
-* Copyright (c) 2015 Nattawat Nonsung; Licensed MIT */
+* Copyright (c) 2016 Nattawat Nonsung; Licensed MIT */
 (function ($) {
   var settings = [];
   var clickSource;
@@ -9,10 +9,10 @@
   $.fn.slideReveal = function (options, triggerEvents) {
     var self = this;
     var paddingLeft = self.css('padding-left');
-    paddingLeft = +paddingLeft.substring(0, paddingLeft.length -2);
+    paddingLeft = paddingLeft ? +paddingLeft.substring(0, paddingLeft.length - 2) : 0;
 
-    var paddingRight = self.css('padding-left');
-    paddingRight = +paddingRight.substring(0, paddingRight.length -2);
+    var paddingRight = self.css('padding-right');
+    paddingRight = paddingRight ? +paddingRight.substring(0, paddingRight.length - 2) : 0;
     var setting, sidePosition;
 
     if (options !== undefined && typeof(options) === "string") {
