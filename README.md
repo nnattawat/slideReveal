@@ -35,4 +35,7 @@ The plugin does not add any CSS to your side panel. So, you need to style it you
 Please refer to its [github.io](http://nnattawat.github.io/slideReveal)
 
 ## Release History
-_(Nothing yet)_
+See the [release page](https://github.com/nnattawat/slideReveal/releases)
+
+## How to Contribute
+See the [contributing page](https://github.com/nnattawat/slideReveal/blob/master/CONTRIBUTING.md)
