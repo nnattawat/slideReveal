@@ -1,8 +1,5 @@
 (function ($) {
   // Private attributes and method
-  var settings = [];
-  var clickSource;
-
   var getPadding = function($el, side) {
     var padding = $el.css('padding-' + side);
     return padding ? +padding.substring(0, padding.length - 2) : 0;
@@ -14,117 +11,51 @@
     return ($el.width() + paddingLeft + paddingRight) + "px";
   };
 
-  var show = function($el, setting, triggerEvents) {
-    // trigger show() method
-    if (triggerEvents === undefined || triggerEvents) { setting.show($el, clickSource); }
+  var SlideReveal = function($el, options) {
+    // Define default setting
+    var setting = {
+      width: 250,
+      push: true,
+      position: "left",
+      speed: 300, //ms
+      trigger: undefined,
+      autoEscape: true,
+      show: function(){},
+      shown: function(){},
+      hidden: function(){},
+      hide: function(){},
+      top: 0,
+      overlay: false,
+      "zIndex": 1049,
+      overlayColor: 'rgba(0,0,0,0.5)'
+    };
 
-    // show overlay
-    if (setting.overlay) {
-      $(".slide-reveal-overlay").show();
-    }
+    // Attributes
+    this.setting = $.extend(setting, options);
+    this.element = $el;
 
-    // slide the panel
-    $el.css(setting.position, "0px");
-    if (setting.push) {
-      if (setting.position === "left") {
-        $("body").css("left", sidePosition($el));
-      } else {
-        $("body").css("left", "-" + sidePosition($el));
-      }
-    }
-    $el.data("slide-reveal", true);
-
-    // trigger shown() method
-    if (triggerEvents === undefined || triggerEvents) {
-      setTimeout(function() {
-        setting.shown($el, clickSource);
-      }, setting.speed);
-    }
+    this.init();
   };
 
-  var hide = function($el, setting, triggerEvents) {
-    // trigger hide() method
-    if (triggerEvents === undefined || triggerEvents) { setting.hide($el, clickSource); }
-
-    // hide the panel
-    if (setting.push) {
-      $("body").css("left", "0px");
-    }
-    $el.css(setting.position, "-" + sidePosition($el));
-    $el.data("slide-reveal", false);
-
-    // trigger hidden() method
-    if (triggerEvents === undefined || triggerEvents) {
-      setTimeout(function(){
-        // hide overlay
-        if (setting.overlay) {
-          $(".slide-reveal-overlay").hide();
-        }
-
-        setting.hidden($el, clickSource);
-      }, setting.speed);
-    }
-  };
-
-  // Collection method.
-  $.fn.slideReveal = function (options, triggerEvents) {
-    var self = this;
-    var setting;
-
-    if (options !== undefined && typeof(options) === "string") {
-      var settingIndex = self.data("setting-index");
-      setting = settings[settingIndex];
-
-
-      if (options === "show") {
-        show(self, setting, triggerEvents);
-      } else if (options === "hide") {
-        hide(self, setting, triggerEvents);
-      } else if (options === 'toggle') {
-        if (self.data('slide-reveal')) {
-          hide(self, setting, triggerEvents);
-        } else {
-          show(self, setting, triggerEvents);
-        }
-
-      }
-    } else {
-      // Define default setting
-      setting = {
-        width: 250,
-        push: true,
-        position: "left",
-        speed: 300, //ms
-        trigger: undefined,
-        autoEscape: true,
-        show: function(){},
-        shown: function(){},
-        hidden: function(){},
-        hide: function(){},
-        top: 0,
-        overlay: false,
-        "zIndex": 1049,
-        overlayColor: 'rgba(0,0,0,0.5)'
-      };
-
-      setting = $.extend(setting, options);
-
-      // Keep this setting to array so that it won't be overwritten if slideReveal() is called again.
-      settings.push(setting);
-      self.data("setting-index", settings.length - 1);
+  // Public methods
+  $.extend(SlideReveal.prototype, {
+    init: function() {
+      var self = this;
+      var setting = this.setting;
+      var $el = this.element;
 
       var transition = "all ease " + setting.speed + "ms";
-      self.css({
+      $el.css({
         position: "fixed",
         width: setting.width,
         transition: transition,
         height: "100%",
         top: setting.top
       })
-      .css(setting.position, "-" + sidePosition(self));
+      .css(setting.position, "-" + sidePosition($el));
 
       if (setting.overlay) {
-        self.css('z-index', setting.zIndex);
+        $el.css('z-index', setting.zIndex);
         $("body").prepend("<div class='slide-reveal-overlay'></div>");
         $(".slide-reveal-overlay")
         .hide()
@@ -137,12 +68,12 @@
           'z-index': setting.zIndex - 1,
           'background-color': setting.overlayColor,
         }).click(function() {
-          self.slideReveal("hide");
+          self.hide();
         });
       }
 
       // Add close stage
-      self.data("slide-reveal", false);
+      $el.data("slide-reveal", false);
 
       if (setting.push){
         $("body").css({
@@ -156,11 +87,10 @@
       // Attach trigger using click event
       if (setting.trigger && setting.trigger.length > 0) {
         setting.trigger.click( function() {
-          clickSource = $(self);
-          if (!self.data("slide-reveal")) { // Show
-            self.slideReveal("show");
+          if (!$el.data("slide-reveal")) { // Show
+            self.show();
           } else { // Hide
-            self.slideReveal("hide");
+            self.hide();
           }
         });
       }
@@ -169,15 +99,106 @@
       if (setting.autoEscape) {
         $(document).keydown( function(e) {
           if ($('input:focus, textarea:focus').length === 0) {
-            if (e.keyCode === 27 && self.data("slide-reveal")) { //ESC
-              self.slideReveal("hide");
+            if (e.keyCode === 27 && $el.data("slide-reveal")) { //ESC
+              self.hide();
             }
           }
         });
       }
+    },
+
+    show: function(triggerEvents) {
+      var setting = this.setting;
+      var $el = this.element;
+
+      // trigger show() method
+      if (triggerEvents === undefined || triggerEvents) { setting.show($el); }
+
+      // show overlay
+      if (setting.overlay) {
+        $(".slide-reveal-overlay").show();
+      }
+
+      // slide the panel
+      $el.css(setting.position, "0px");
+      if (setting.push) {
+        if (setting.position === "left") {
+          $("body").css("left", sidePosition($el));
+        } else {
+          $("body").css("left", "-" + sidePosition($el));
+        }
+      }
+      $el.data("slide-reveal", true);
+
+      // trigger shown() method
+      if (triggerEvents === undefined || triggerEvents) {
+        setTimeout(function() {
+          setting.shown($el);
+        }, setting.speed);
+      }
+    },
+
+    hide: function(triggerEvents) {
+      var setting = this.setting;
+      var $el = this.element;
+
+      // trigger hide() method
+      if (triggerEvents === undefined || triggerEvents) { setting.hide($el); }
+
+      // hide the panel
+      if (setting.push) {
+        $("body").css("left", "0px");
+      }
+      $el.css(setting.position, "-" + sidePosition($el));
+      $el.data("slide-reveal", false);
+
+      // trigger hidden() method
+      if (triggerEvents === undefined || triggerEvents) {
+        setTimeout(function(){
+          // hide overlay
+          if (setting.overlay) {
+            $(".slide-reveal-overlay").hide();
+          }
+
+          setting.hidden($el);
+        }, setting.speed);
+      }
+    },
+
+    toggle: function(triggerEvents) {
+      var $el = this.element;
+      if ($el.data('slide-reveal')) {
+        this.hide(triggerEvents);
+      } else {
+        this.show(triggerEvents);
+      }
+    }
+  });
+
+  // jQuery collection methods
+  $.fn.slideReveal = function (options, triggerEvents) {
+    if (options !== undefined && typeof(options) === "string") {
+      this.each(function() {
+        var slideReveal = $(this).data('slide-reveal-model');
+
+        if (options === "show") {
+          slideReveal.show(triggerEvents);
+        } else if (options === "hide") {
+          slideReveal.hide(triggerEvents);
+        } else if (options === 'toggle') {
+          slideReveal.toggle(triggerEvents);
+        }
+      });
+    } else {
+      this.each(function() {
+        if ($(this).data('slide-reveal-model')) {
+          $(this).data('slide-reveal-model').remove();
+        }
+        $(this).data('slide-reveal-model', new SlideReveal($(this), options))
+      });
     }
 
-    return self;
+    return this;
   };
 
 }(jQuery));
