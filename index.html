@@ -125,20 +125,28 @@
         <pre class="prettyprint">&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
 </pre>
         <p>JS code:</p>
-        <pre class="prettyprint">var slider = $('#slider').slideReveal(); // slideReveal return $('#slider')</pre>
-        <p>Then to show it, you can call:</p>
-        <pre class="prettyprint">slider.slideReveal("show") // which is equal to $('#slider').slideReveal("show");</pre>
-        <p>To hide it, call:</p>
-        <pre class="prettyprint">slider.slideReveal("hide") // which is equal to $('#slider').slideReveal("hide");</pre>
+        <pre class="prettyprint">var slider = $('#slider').slideReveal(); // slideReveal return $('#slider')
+
+// To show the panel
+slider.slideReveal("show") // which is equal to $('#slider').slideReveal("show");
+
+// To hide the panel
+slider.slideReveal("hide") // which is equal to $('#slider').slideReveal("hide");
+
+// To toggle the panel
+slider.slideReveal("toggle") // which is equal to $('#slider').slideReveal("toggle");
+</pre>
         <div>
           <button id="show-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("show")</code></button>
           <button id="hide-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("hide")</code></button>
+          <button id="toggle-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("toggle")</code></button>
         </div>
         <br/>
         <p>
           If you want to skip the callback functions: <code>show(), shown(), hide() and hidden()</code> mentioned in the next section, you can send <code>false</code> as the second parameter as,
           <pre class="prettyprint">slider.slideReveal("show", false);
-slider.slideReveal("hide", false);</pre>
+slider.slideReveal("hide", false);
+slider.slideReveal("toggle", false);</pre>
         </p>
       </section>
       <section id="option">
@@ -153,9 +161,9 @@ slider.slideReveal("hide", false);</pre>
           <tbody>
             <tr>
               <td>width</td>
-              <td><code>integer</code></td>
+              <td><code>integer || String</code></td>
               <td><code>250</code></td>
-              <td>Width of a side panel.</td>
+              <td>Width of a side panel. <code>Integer</code> value will be evaluated as <code>px</code>. <code>String</code> value will be assigned directly e.g. <code>'100px'</code>, <code>'50%'</code></td>
             </tr>
             <tr>
               <td>push</td>
@@ -383,6 +391,9 @@ $("slider").slideReveal({
         });
         $("#hide-manually").click(function(){
           sample1.slideReveal("hide");
+        });
+        $("#toggle-manually").click(function(){
+          sample1.slideReveal("toggle");
         });
 
         $("#sample-2").slideReveal({
