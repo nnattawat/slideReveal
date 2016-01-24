@@ -194,7 +194,7 @@
         if ($(this).data('slide-reveal-model')) {
           $(this).data('slide-reveal-model').remove();
         }
-        $(this).data('slide-reveal-model', new SlideReveal($(this), options))
+        $(this).data('slide-reveal-model', new SlideReveal($(this), options));
       });
     }
 

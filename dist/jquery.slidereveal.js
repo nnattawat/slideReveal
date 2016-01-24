@@ -1,150 +1,99 @@
-/*! slidereveal - v1.0.2 - 2016-01-04
+/*! slidereveal - v1.1.0 - 2016-01-24
 * https://github.com/nnattawat/slidereveal
 * Copyright (c) 2016 Nattawat Nonsung; Licensed MIT */
 (function ($) {
-  var settings = [];
-  var clickSource;
+  // Private attributes and method
+  var getPadding = function($el, side) {
+    var padding = $el.css('padding-' + side);
+    return padding ? +padding.substring(0, padding.length - 2) : 0;
+  };
 
-  // Collection method.
-  $.fn.slideReveal = function (options, triggerEvents) {
-    var self = this;
-    var paddingLeft = self.css('padding-left');
-    paddingLeft = paddingLeft ? +paddingLeft.substring(0, paddingLeft.length - 2) : 0;
+  var sidePosition = function($el) {
+    var paddingLeft = getPadding($el, 'left');
+    var paddingRight = getPadding($el, 'right');
+    return ($el.width() + paddingLeft + paddingRight) + "px";
+  };
 
-    var paddingRight = self.css('padding-right');
-    paddingRight = paddingRight ? +paddingRight.substring(0, paddingRight.length - 2) : 0;
-    var setting, sidePosition;
+  var SlideReveal = function($el, options) {
+    // Define default setting
+    var setting = {
+      width: 250,
+      push: true,
+      position: "left",
+      speed: 300, //ms
+      trigger: undefined,
+      autoEscape: true,
+      show: function(){},
+      shown: function(){},
+      hidden: function(){},
+      hide: function(){},
+      top: 0,
+      overlay: false,
+      "zIndex": 1049,
+      overlayColor: 'rgba(0,0,0,0.5)'
+    };
 
-    if (options !== undefined && typeof(options) === "string") {
-      var settingIndex = self.data("setting-index");
-      setting = settings[settingIndex];
+    // Attributes
+    this.setting = $.extend(setting, options);
+    this.element = $el;
 
-      sidePosition = (setting.width + paddingLeft + paddingRight) + "px";
+    this.init();
+  };
 
-      if (options === "show") {
-        // show overlay
-        if (setting.overlay) {
-          $(".slide-reveal-overlay").show();
-        }
-
-        // trigger show() method
-        if (triggerEvents === undefined || triggerEvents) { setting.show(this, clickSource); }
-
-        // slide the panel 
-        self.css(setting.position, "0px");
-        if (setting.push) {
-          if (setting.position==="left") {
-            $("body").css("left", sidePosition);
-          } else {
-            $("body").css("left", "-"+sidePosition);
-          }
-        }
-        self.data("slide-reveal", true);
-
-        // trigger shown() method
-        if (triggerEvents === undefined || triggerEvents) {
-          setTimeout(function() {
-            setting.shown(self, clickSource);
-          }, setting.speed);
-        }
-        return self;
-      } else if (options === "hide") {
-        // trigger hide() method
-        if (triggerEvents === undefined || triggerEvents) { setting.hide(this, clickSource); }
-
-        // hide the panel
-        if (setting.push) {
-          $("body").css("left", "0px");
-        }
-        self.css(setting.position, "-"+sidePosition);
-        self.data("slide-reveal", false);
-
-        // trigger hidden() method
-        if (triggerEvents === undefined || triggerEvents) {
-          setTimeout(function(){
-            // hide overlay
-            if (setting.overlay) {
-              $(".slide-reveal-overlay").hide();
-            }
-
-            setting.hidden(self, clickSource);
-          }, setting.speed);
-        }
-        return self;
-      }
-    } else {
-      // Define default setting
-      setting = {
-        width: 250,
-        push: true,
-        position: "left",
-        speed: 300, //ms
-        trigger: undefined,
-        autoEscape: true,
-        show: function(){},
-        shown: function(){},
-        hidden: function(){},
-        hide: function(){},
-        top: 0,
-        overlay: false,
-        "zIndex": 1049,
-        overlayColor: 'rgba(0,0,0,0.5)'
-      };
-      setting = $.extend(setting, options);
-      // Keep this setting to array so that it won't be overwritten if slideReveal() is called again.
-      settings.push(setting);
-      self.data("setting-index", settings.length - 1);
-
-      sidePosition = (setting.width + paddingLeft + paddingRight) + "px";
+  // Public methods
+  $.extend(SlideReveal.prototype, {
+    init: function() {
+      var self = this;
+      var setting = this.setting;
+      var $el = this.element;
 
       var transition = "all ease " + setting.speed + "ms";
-      self.css({
-          position: "fixed",
-          width: setting.width,
-          transition: transition,
-          height: "100%",
-          top: setting.top
-        })
-        .css(setting.position, "-"+sidePosition);
+      $el.css({
+        position: "fixed",
+        width: setting.width,
+        transition: transition,
+        height: "100%",
+        top: setting.top
+      })
+      .css(setting.position, "-" + sidePosition($el));
 
       if (setting.overlay) {
-        self.css('z-index', setting.zIndex);
+        $el.css('z-index', setting.zIndex);
         $("body").prepend("<div class='slide-reveal-overlay'></div>");
         $(".slide-reveal-overlay")
-          .hide()
-          .css({
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            'z-index': setting.zIndex - 1,
-            'background-color': setting.overlayColor,
-          }).click(function() {
-            self.slideReveal("hide");
-          });
+        .hide()
+        .css({
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%',
+          'z-index': setting.zIndex - 1,
+          'background-color': setting.overlayColor,
+        }).click(function() {
+          self.hide();
+        });
       }
 
       // Add close stage
-      self.data("slide-reveal", false);
+      $el.data("slide-reveal", false);
 
       if (setting.push){
         $("body").css({
-            position: "relative",
-            "overflow-x": "hidden",
-            transition: transition,
-            left: "0px"
-          });
+          position: "relative",
+          "overflow-x": "hidden",
+          transition: transition,
+          left: "0px"
+        });
       }
 
       // Attach trigger using click event
       if (setting.trigger && setting.trigger.length > 0) {
         setting.trigger.click( function() {
-          clickSource = $(this);
-          if (!self.data("slide-reveal")) { // Show
-            self.slideReveal("show");
+          if (!$el.data("slide-reveal")) { // Show
+            self.show();
           } else { // Hide
-            self.slideReveal("hide");
+            self.hide();
           }
         });
       }
@@ -153,12 +102,103 @@
       if (setting.autoEscape) {
         $(document).keydown( function(e) {
           if ($('input:focus, textarea:focus').length === 0) {
-            if (e.keyCode === 27 && self.data("slide-reveal")) { //ESC
-              self.slideReveal("hide");
+            if (e.keyCode === 27 && $el.data("slide-reveal")) { //ESC
+              self.hide();
             }
           }
         });
       }
+    },
+
+    show: function(triggerEvents) {
+      var setting = this.setting;
+      var $el = this.element;
+
+      // trigger show() method
+      if (triggerEvents === undefined || triggerEvents) { setting.show($el); }
+
+      // show overlay
+      if (setting.overlay) {
+        $(".slide-reveal-overlay").show();
+      }
+
+      // slide the panel
+      $el.css(setting.position, "0px");
+      if (setting.push) {
+        if (setting.position === "left") {
+          $("body").css("left", sidePosition($el));
+        } else {
+          $("body").css("left", "-" + sidePosition($el));
+        }
+      }
+      $el.data("slide-reveal", true);
+
+      // trigger shown() method
+      if (triggerEvents === undefined || triggerEvents) {
+        setTimeout(function() {
+          setting.shown($el);
+        }, setting.speed);
+      }
+    },
+
+    hide: function(triggerEvents) {
+      var setting = this.setting;
+      var $el = this.element;
+
+      // trigger hide() method
+      if (triggerEvents === undefined || triggerEvents) { setting.hide($el); }
+
+      // hide the panel
+      if (setting.push) {
+        $("body").css("left", "0px");
+      }
+      $el.css(setting.position, "-" + sidePosition($el));
+      $el.data("slide-reveal", false);
+
+      // trigger hidden() method
+      if (triggerEvents === undefined || triggerEvents) {
+        setTimeout(function(){
+          // hide overlay
+          if (setting.overlay) {
+            $(".slide-reveal-overlay").hide();
+          }
+
+          setting.hidden($el);
+        }, setting.speed);
+      }
+    },
+
+    toggle: function(triggerEvents) {
+      var $el = this.element;
+      if ($el.data('slide-reveal')) {
+        this.hide(triggerEvents);
+      } else {
+        this.show(triggerEvents);
+      }
+    }
+  });
+
+  // jQuery collection methods
+  $.fn.slideReveal = function (options, triggerEvents) {
+    if (options !== undefined && typeof(options) === "string") {
+      this.each(function() {
+        var slideReveal = $(this).data('slide-reveal-model');
+
+        if (options === "show") {
+          slideReveal.show(triggerEvents);
+        } else if (options === "hide") {
+          slideReveal.hide(triggerEvents);
+        } else if (options === 'toggle') {
+          slideReveal.toggle(triggerEvents);
+        }
+      });
+    } else {
+      this.each(function() {
+        if ($(this).data('slide-reveal-model')) {
+          $(this).data('slide-reveal-model').remove();
+        }
+        $(this).data('slide-reveal-model', new SlideReveal($(this), options));
+      });
     }
 
     return this;
