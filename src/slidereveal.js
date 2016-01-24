@@ -2,14 +2,68 @@
   // Private attributes and method
   var settings = [];
   var clickSource;
+
   var getPadding = function($el, side) {
     var padding = $el.css('padding-' + side);
     return padding ? +padding.substring(0, padding.length - 2) : 0;
   };
+
   var sidePosition = function($el) {
     var paddingLeft = getPadding($el, 'left');
     var paddingRight = getPadding($el, 'right');
     return ($el.width() + paddingLeft + paddingRight) + "px";
+  };
+
+  var show = function($el, setting, triggerEvents) {
+    // trigger show() method
+    if (triggerEvents === undefined || triggerEvents) { setting.show($el, clickSource); }
+
+    // show overlay
+    if (setting.overlay) {
+      $(".slide-reveal-overlay").show();
+    }
+
+    // slide the panel
+    $el.css(setting.position, "0px");
+    if (setting.push) {
+      if (setting.position === "left") {
+        $("body").css("left", sidePosition($el));
+      } else {
+        $("body").css("left", "-" + sidePosition($el));
+      }
+    }
+    $el.data("slide-reveal", true);
+
+    // trigger shown() method
+    if (triggerEvents === undefined || triggerEvents) {
+      setTimeout(function() {
+        setting.shown($el, clickSource);
+      }, setting.speed);
+    }
+  };
+
+  var hide = function($el, setting, triggerEvents) {
+    // trigger hide() method
+    if (triggerEvents === undefined || triggerEvents) { setting.hide($el, clickSource); }
+
+    // hide the panel
+    if (setting.push) {
+      $("body").css("left", "0px");
+    }
+    $el.css(setting.position, "-" + sidePosition($el));
+    $el.data("slide-reveal", false);
+
+    // trigger hidden() method
+    if (triggerEvents === undefined || triggerEvents) {
+      setTimeout(function(){
+        // hide overlay
+        if (setting.overlay) {
+          $(".slide-reveal-overlay").hide();
+        }
+
+        setting.hidden($el, clickSource);
+      }, setting.speed);
+    }
   };
 
   // Collection method.
@@ -23,53 +77,16 @@
 
 
       if (options === "show") {
-        // trigger show() method
-        if (triggerEvents === undefined || triggerEvents) { setting.show(self, clickSource); }
-
-        // show overlay
-        if (setting.overlay) {
-          $(".slide-reveal-overlay").show();
-        }
-
-        // slide the panel
-        self.css(setting.position, "0px");
-        if (setting.push) {
-          if (setting.position === "left") {
-            $("body").css("left", sidePosition(self));
-          } else {
-            $("body").css("left", "-" + sidePosition(self));
-          }
-        }
-        self.data("slide-reveal", true);
-
-        // trigger shown() method
-        if (triggerEvents === undefined || triggerEvents) {
-          setTimeout(function() {
-            setting.shown(self, clickSource);
-          }, setting.speed);
-        }
+        show(self, setting, triggerEvents);
       } else if (options === "hide") {
-        // trigger hide() method
-        if (triggerEvents === undefined || triggerEvents) { setting.hide(self, clickSource); }
-
-        // hide the panel
-        if (setting.push) {
-          $("body").css("left", "0px");
+        hide(self, setting, triggerEvents);
+      } else if (options === 'toggle') {
+        if (self.data('slide-reveal')) {
+          hide(self, setting, triggerEvents);
+        } else {
+          show(self, setting, triggerEvents);
         }
-        self.css(setting.position, "-" + sidePosition(self));
-        self.data("slide-reveal", false);
 
-        // trigger hidden() method
-        if (triggerEvents === undefined || triggerEvents) {
-          setTimeout(function(){
-            // hide overlay
-            if (setting.overlay) {
-              $(".slide-reveal-overlay").hide();
-            }
-
-            setting.hidden(self, clickSource);
-          }, setting.speed);
-        }
       }
     } else {
       // Define default setting
@@ -98,30 +115,30 @@
 
       var transition = "all ease " + setting.speed + "ms";
       self.css({
-          position: "fixed",
-          width: setting.width,
-          transition: transition,
-          height: "100%",
-          top: setting.top
-        })
-        .css(setting.position, "-" + sidePosition(self));
+        position: "fixed",
+        width: setting.width,
+        transition: transition,
+        height: "100%",
+        top: setting.top
+      })
+      .css(setting.position, "-" + sidePosition(self));
 
       if (setting.overlay) {
         self.css('z-index', setting.zIndex);
         $("body").prepend("<div class='slide-reveal-overlay'></div>");
         $(".slide-reveal-overlay")
-          .hide()
-          .css({
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            'z-index': setting.zIndex - 1,
-            'background-color': setting.overlayColor,
-          }).click(function() {
-            self.slideReveal("hide");
-          });
+        .hide()
+        .css({
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%',
+          'z-index': setting.zIndex - 1,
+          'background-color': setting.overlayColor,
+        }).click(function() {
+          self.slideReveal("hide");
+        });
       }
 
       // Add close stage
@@ -129,11 +146,11 @@
 
       if (setting.push){
         $("body").css({
-            position: "relative",
-            "overflow-x": "hidden",
-            transition: transition,
-            left: "0px"
-          });
+          position: "relative",
+          "overflow-x": "hidden",
+          transition: transition,
+          left: "0px"
+        });
       }
 
       // Attach trigger using click event
