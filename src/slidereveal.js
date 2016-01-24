@@ -1,39 +1,43 @@
 (function ($) {
+  // Private attributes and method
   var settings = [];
   var clickSource;
+  var getPadding = function($el, side) {
+    var padding = $el.css('padding-' + side);
+    return padding ? +padding.substring(0, padding.length - 2) : 0;
+  };
+  var sidePosition = function($el) {
+    var paddingLeft = getPadding($el, 'left');
+    var paddingRight = getPadding($el, 'right');
+    return ($el.width() + paddingLeft + paddingRight) + "px";
+  };
 
   // Collection method.
   $.fn.slideReveal = function (options, triggerEvents) {
     var self = this;
-    var paddingLeft = self.css('padding-left');
-    paddingLeft = paddingLeft ? +paddingLeft.substring(0, paddingLeft.length - 2) : 0;
-
-    var paddingRight = self.css('padding-right');
-    paddingRight = paddingRight ? +paddingRight.substring(0, paddingRight.length - 2) : 0;
-    var setting, sidePosition;
+    var setting;
 
     if (options !== undefined && typeof(options) === "string") {
       var settingIndex = self.data("setting-index");
       setting = settings[settingIndex];
 
-      sidePosition = (setting.width + paddingLeft + paddingRight) + "px";
 
       if (options === "show") {
+        // trigger show() method
+        if (triggerEvents === undefined || triggerEvents) { setting.show(self, clickSource); }
+
         // show overlay
         if (setting.overlay) {
           $(".slide-reveal-overlay").show();
         }
 
-        // trigger show() method
-        if (triggerEvents === undefined || triggerEvents) { setting.show(this, clickSource); }
-
-        // slide the panel 
+        // slide the panel
         self.css(setting.position, "0px");
         if (setting.push) {
-          if (setting.position==="left") {
-            $("body").css("left", sidePosition);
+          if (setting.position === "left") {
+            $("body").css("left", sidePosition(self));
           } else {
-            $("body").css("left", "-"+sidePosition);
+            $("body").css("left", "-" + sidePosition(self));
           }
         }
         self.data("slide-reveal", true);
@@ -44,16 +48,15 @@
             setting.shown(self, clickSource);
           }, setting.speed);
         }
-        return self;
       } else if (options === "hide") {
         // trigger hide() method
-        if (triggerEvents === undefined || triggerEvents) { setting.hide(this, clickSource); }
+        if (triggerEvents === undefined || triggerEvents) { setting.hide(self, clickSource); }
 
         // hide the panel
         if (setting.push) {
           $("body").css("left", "0px");
         }
-        self.css(setting.position, "-"+sidePosition);
+        self.css(setting.position, "-" + sidePosition(self));
         self.data("slide-reveal", false);
 
         // trigger hidden() method
@@ -67,7 +70,6 @@
             setting.hidden(self, clickSource);
           }, setting.speed);
         }
-        return self;
       }
     } else {
       // Define default setting
@@ -87,12 +89,12 @@
         "zIndex": 1049,
         overlayColor: 'rgba(0,0,0,0.5)'
       };
+
       setting = $.extend(setting, options);
+
       // Keep this setting to array so that it won't be overwritten if slideReveal() is called again.
       settings.push(setting);
       self.data("setting-index", settings.length - 1);
-
-      sidePosition = (setting.width + paddingLeft + paddingRight) + "px";
 
       var transition = "all ease " + setting.speed + "ms";
       self.css({
@@ -102,7 +104,7 @@
           height: "100%",
           top: setting.top
         })
-        .css(setting.position, "-"+sidePosition);
+        .css(setting.position, "-" + sidePosition(self));
 
       if (setting.overlay) {
         self.css('z-index', setting.zIndex);
@@ -137,7 +139,7 @@
       // Attach trigger using click event
       if (setting.trigger && setting.trigger.length > 0) {
         setting.trigger.click( function() {
-          clickSource = $(this);
+          clickSource = $(self);
           if (!self.data("slide-reveal")) { // Show
             self.slideReveal("show");
           } else { // Hide
@@ -158,7 +160,7 @@
       }
     }
 
-    return this;
+    return self;
   };
 
 }(jQuery));
