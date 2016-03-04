@@ -11,6 +11,21 @@
 
   </head>
   <body>
+    <script type="text/javascript">
+      dataLayer = [{
+        "event": "gtm.js",
+        "trackingId": "UA-50628297-1"
+      }];
+    </script>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BVPRB"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5BVPRB');</script>
+    <!-- End Google Tag Manager -->
 
     <!-- <a href="https://github.com/nnattawat/slideReveal">
     <img style="position: absolute; z-index: 1001; top: 0px; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
@@ -59,6 +74,8 @@
         <p>Download <a href="https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.min.js">compressed</a> or <a href="https://raw.githubusercontent.com/nnattawat/slidereveal/master/dist/jquery.slidereveal.js">uncompressed</a> version of SlideReveal.
         Then, simply include <code>jquery.js</code> and <code>jquery.slidereveal.min.js</code> you have downloaded.</p>
         <pre class="prettyprint">&lt;script src="http://code.jquery.com/jquery-[latest].min.js"&gt;<br/>&lt;script src="jquery.slidereveal.min.js"&gt;</pre>
+        <p>Or install using bower</p>
+        <pre class="prettyprint">bower install slidereveal</pre>
       </section>
 
       <section id="use">
@@ -108,20 +125,28 @@
         <pre class="prettyprint">&lt;div id='slider'&gt;Hello World!!&lt;/div&gt;
 </pre>
         <p>JS code:</p>
-        <pre class="prettyprint">var slider = $('#slider').slideReveal(); // slideReveal return $('#slider')</pre>
-        <p>Then to show it, you can call:</p>
-        <pre class="prettyprint">slider.slideReveal("show") // which is equal to $('#slider').slideReveal("show");</pre>
-        <p>To hide it, call:</p>
-        <pre class="prettyprint">slider.slideReveal("hide") // which is equal to $('#slider').slideReveal("hide");</pre>
+        <pre class="prettyprint">var slider = $('#slider').slideReveal(); // slideReveal return $('#slider')
+
+// To show the panel
+slider.slideReveal("show") // which is equal to $('#slider').slideReveal("show");
+
+// To hide the panel
+slider.slideReveal("hide") // which is equal to $('#slider').slideReveal("hide");
+
+// To toggle the panel
+slider.slideReveal("toggle") // which is equal to $('#slider').slideReveal("toggle");
+</pre>
         <div>
           <button id="show-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("show")</code></button>
           <button id="hide-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("hide")</code></button>
+          <button id="toggle-manually" class="btn btn-default">Click to call<br/> <code>$('#slider').slideReveal("toggle")</code></button>
         </div>
         <br/>
         <p>
           If you want to skip the callback functions: <code>show(), shown(), hide() and hidden()</code> mentioned in the next section, you can send <code>false</code> as the second parameter as,
           <pre class="prettyprint">slider.slideReveal("show", false);
-slider.slideReveal("hide", false);</pre>
+slider.slideReveal("hide", false);
+slider.slideReveal("toggle", false);</pre>
         </p>
       </section>
       <section id="option">
@@ -136,15 +161,33 @@ slider.slideReveal("hide", false);</pre>
           <tbody>
             <tr>
               <td>width</td>
-              <td><code>integer</code></td>
+              <td><code>integer || String</code></td>
               <td><code>250</code></td>
-              <td>Width of a side panel.</td>
+              <td>Width of a side panel. <code>Integer</code> value will be evaluated as <code>px</code>. <code>String</code> value will be assigned directly e.g. <code>'100px'</code>, <code>'50%'</code></td>
             </tr>
             <tr>
               <td>push</td>
               <td><code>boolean</code></td>
               <td><code>true</code></td>
               <td>Whether you want a panel to push the main content. Set it to <code>false</code> results to the menu on the right, for example.</td>
+            </tr>
+            <tr>
+              <td>overlay</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether you want to add the overlay to the main content.</td>
+            </tr>
+            <tr>
+              <td>overlayColor</td>
+              <td><code>String</code></td>
+              <td><code>rgba(0,0,0,0.5)</code></td>
+              <td>Valid <code>css</code> color value.</td>
+            </tr>
+            <tr>
+              <td>zIndex</td>
+              <td><code>integer</code></td>
+              <td><code>1049</code></td>
+              <td><code>z-index</code> of your side panel. In case you use <code>overlay</code>, the overlay's <code>z-index</code> will be set to the given value - 1.</td>
             </tr>
             <tr>
               <td>position</td>
@@ -180,25 +223,25 @@ slider.slideReveal("hide", false);</pre>
               <td>show</td>
               <td><code>function</code></td>
               <td>-</td>
-              <td>Function that you want to trigger before a panel starts revealing. It passes one parameter which is jQuery object of you side panel.</td>
+              <td>Function that you want to trigger before a panel starts revealing. It passes two parameters, jQuery side panel and trigger objects respectively.</td>
             </tr>
             <tr>
               <td>shown</td>
               <td><code>function</code></td>
               <td>-</td>
-              <td>Function that you want to trigger once a panel is fully shown. It passes one parameter which is jQuery object of you side panel.</td>
+              <td>Function that you want to trigger once a panel is fully shown. It passes two parameters, jQuery side panel and trigger objects respectively</td>
             </tr>
             <tr>
               <td>hide</td>
               <td><code>function</code></td>
               <td>-</td>
-              <td>Function that you want to trigger before a panel starts hiding. It passes one parameter which is jQuery object of you side panel.</td>
+              <td>Function that you want to trigger before a panel starts hiding. It passes two parameters, jQuery side panel and trigger objects respectively</td>
             </tr>
             <tr>
               <td>hidden</td>
               <td><code>function</code></td>
               <td>-</td>
-              <td>Function that you want to trigger once a panel is fully hidden. It passes one parameter which is jQuery object of you side panel.</td>
+              <td>Function that you want to trigger once a panel is fully hidden. It passes two parameters, jQuery side panel and trigger objects respectively</td>
             </tr>
           </tbody>
           </tbody>
@@ -236,7 +279,8 @@ $("slider").slideReveal({
             <pre class="prettyprint">
 $("slider").slideReveal({
   trigger: $("#trigger"),
-  push: false
+  push: false,
+  overlay: true
 });
 </pre>
          <div id="sample-3" class="side-panel ">
@@ -275,16 +319,16 @@ $("slider").slideReveal({
             <pre class="prettyprint">
 $("slider").slideReveal({
   trigger: $("#trigger"),
-  shown: function(slider){
+  shown: function(slider, trigger){
     alert("After opened!");
   },
-  hidden: function(slider){
+  hidden: function(slider, trigger){
     alert("After closed!");
   },
-  show: function(slider){
+  show: function(slider, trigger){
     alert("Before open!");
   },
-  hide: function(slider){
+  hide: function(slider, trigger){
     alert("Before close!");
   }
 });
@@ -348,6 +392,9 @@ $("slider").slideReveal({
         $("#hide-manually").click(function(){
           sample1.slideReveal("hide");
         });
+        $("#toggle-manually").click(function(){
+          sample1.slideReveal("toggle");
+        });
 
         $("#sample-2").slideReveal({
           trigger: $("#sample-2-btn"),
@@ -356,7 +403,8 @@ $("slider").slideReveal({
 
         $("#sample-3").slideReveal({
           trigger: $("#sample-3-btn"),
-          push: false
+          push: false,
+          overlay: true
         });
 
         $("#sample-4").slideReveal({
@@ -381,15 +429,6 @@ $("slider").slideReveal({
           }
         });
       });
-
-      // Google Analytics
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-50628297-1', 'nnattawat.github.io');
-      ga('send', 'pageview');
     </script>
   </body>
 </html>
