@@ -86,7 +86,7 @@
 
       // Attach trigger using click event
       if (setting.trigger && setting.trigger.length > 0) {
-        setting.trigger.click( function() {
+        setting.trigger.on('click.slideReveal', function() {
           if (!$el.data("slide-reveal")) { // Show
             self.show();
           } else { // Hide
@@ -97,9 +97,9 @@
 
       // Bind hide event to ESC
       if (setting.autoEscape) {
-        $(document).keydown( function(e) {
+        $(document).on('keydown.slideReveal', function(e) {
           if ($('input:focus, textarea:focus').length === 0) {
-            if (e.keyCode === 27 && $el.data("slide-reveal")) { //ESC
+            if (e.keyCode === 27 && $el.data("slide-reveal")) { // ESC
               self.hide();
             }
           }
