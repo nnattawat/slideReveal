@@ -1,3 +1,6 @@
+/*! slidereveal - v1.1.1 - 2016-03-04
+* https://github.com/nnattawat/slidereveal
+* Copyright (c) 2016 Nattawat Nonsung; Licensed MIT */
 (function ($) {
   // Private attributes and method
   var getPadding = function($el, side) {
@@ -56,8 +59,8 @@
 
       if (setting.overlay) {
         $el.css('z-index', setting.zIndex);
-        $("body").prepend("<div class='slide-reveal-overlay'></div>");
-        $(".slide-reveal-overlay")
+
+        var $overlay = $("<div class='slide-reveal-overlay'></div>")
         .hide()
         .css({
           position: 'fixed',
@@ -70,6 +73,9 @@
         }).click(function() {
           self.hide();
         });
+
+        $("body").prepend($overlay);
+        $el.data('slide-reveal-overlay', $overlay);
       }
 
       // Add close stage
@@ -116,7 +122,8 @@
 
       // show overlay
       if (setting.overlay) {
-        $(".slide-reveal-overlay").show();
+        var $overlay = $el.data('slide-reveal-overlay');
+        $overlay.show();
       }
 
       // slide the panel
