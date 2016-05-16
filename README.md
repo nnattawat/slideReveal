@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/nnattawat/slideReveal.svg?branch=master)](https://travis-ci.org/nnattawat/slideReveal)
 # Slide Reveal
 
 Show side panel by sliding from the left or right of the page.

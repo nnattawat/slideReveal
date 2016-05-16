@@ -46,27 +46,10 @@ module.exports = function (grunt) {
       }
     },
     jshint: {
-      options: {
-        reporter: require('jshint-stylish')
+      options : {
+        jshintrc : '.jshintrc'
       },
-      gruntfile: {
-        options: {
-          jshintrc: '.jshintrc'
-        },
-        src: 'Gruntfile.js'
-      },
-      src: {
-        options: {
-          jshintrc: 'src/.jshintrc'
-        },
-        src: ['src/**/*.js']
-      },
-      test: {
-        options: {
-          jshintrc: 'test/.jshintrc'
-        },
-        src: ['test/**/*.js']
-      }
+      all: [ 'src/<%= pkg.name %>.js']
     },
     watch: {
       gruntfile: {
