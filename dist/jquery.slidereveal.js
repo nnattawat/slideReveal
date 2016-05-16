@@ -1,4 +1,4 @@
-/*! slidereveal - v1.1.1 - 2016-03-25
+/*! slidereveal - v1.1.2 - 2016-05-16
 * https://github.com/nnattawat/slidereveal
 * Copyright (c) 2016 Nattawat Nonsung; Licensed MIT */
 /*! slidereveal - v1.1.1 - 2016-03-04
@@ -63,7 +63,7 @@
       if (setting.overlay) {
         $el.css('z-index', setting.zIndex);
 
-        var $overlay = $("<div class='slide-reveal-overlay'></div>")
+        self.overlayElement = $("<div class='slide-reveal-overlay'></div>")
         .hide()
         .css({
           position: 'fixed',
@@ -77,8 +77,7 @@
           self.hide();
         });
 
-        $("body").prepend($overlay);
-        $el.data('slide-reveal-overlay', $overlay);
+        $("body").prepend(self.overlayElement);
       }
 
       // Add close stage
@@ -119,14 +118,14 @@
     show: function(triggerEvents) {
       var setting = this.setting;
       var $el = this.element;
+      var $overlayElement = this.overlayElement;
 
       // trigger show() method
       if (triggerEvents === undefined || triggerEvents) { setting.show($el); }
 
       // show overlay
       if (setting.overlay) {
-        var $overlay = $el.data('slide-reveal-overlay');
-        $overlay.show();
+        $overlayElement.show();
       }
 
       // slide the panel
@@ -151,6 +150,7 @@
     hide: function(triggerEvents) {
       var setting = this.setting;
       var $el = this.element;
+      var $overlayElement = this.overlayElement;
 
       // trigger hide() method
       if (triggerEvents === undefined || triggerEvents) { setting.hide($el); }
@@ -167,7 +167,7 @@
         setTimeout(function(){
           // hide overlay
           if (setting.overlay) {
-            $(".slide-reveal-overlay").hide();
+            $overlayElement.hide();
           }
 
           setting.hidden($el);
@@ -182,7 +182,18 @@
       } else {
         this.show(triggerEvents);
       }
+    },
+
+    remove: function() {
+      this.element.removeData('slide-reveal-model');
+      if (this.setting.trigger && this.setting.trigger.length > 0) {
+        this.setting.trigger.off('.slideReveal');
+      }
+      if (this.overlayElement && this.overlayElement.length > 0) {
+        this.overlayElement.remove();
+      }
     }
+
   });
 
   // jQuery collection methods
