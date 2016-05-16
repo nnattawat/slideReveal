@@ -93,7 +93,8 @@
           },
           hidden: function(obj){
             console.log(obj);
-          }
+          },
+          overlay: true
         });
 
         slider2 = $("#slider2").slideReveal({
@@ -104,7 +105,8 @@
           trigger: $("#trigger2"),
           // autoEscape: false,
           overlay: true,
-          top: 100
+          top: 100,
+          overlayColor: 'rgba(255,255,255,0.5)'
         });
     	});
 
