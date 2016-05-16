@@ -113,7 +113,7 @@
           <div class="panel-body">
             If you add <code>padding</code> to a side panel and you use <strong>Bootstrap</strong>, the plugin <strong>won't work</strong> properly. The hot fix for now is to add the following CSS.</p>
           <pre class="prettyprint">* {
-  box-sizing: content-box; 
+  box-sizing: content-box;
 }</pre>
           </div>
         </div>
@@ -258,7 +258,7 @@ slider.slideReveal("toggle", false);</pre>
           </div>
           <div class="panel-body">
             <pre class="prettyprint">
-$("slider").slideReveal({
+$("#slider").slideReveal({
   trigger: $("#trigger"),
   position: "right"
 });
@@ -277,7 +277,7 @@ $("slider").slideReveal({
           </div>
           <div class="panel-body">
             <pre class="prettyprint">
-$("slider").slideReveal({
+$("#slider").slideReveal({
   trigger: $("#trigger"),
   push: false,
   overlay: true
@@ -297,7 +297,7 @@ $("slider").slideReveal({
           </div>
           <div class="panel-body">
             <pre class="prettyprint">
-$("slider").slideReveal({
+$("#slider").slideReveal({
   trigger: $("#trigger"),
   autoEscape: false,
   width: 500,
@@ -317,7 +317,7 @@ $("slider").slideReveal({
           </div>
           <div class="panel-body">
             <pre class="prettyprint">
-$("slider").slideReveal({
+$("#slider").slideReveal({
   trigger: $("#trigger"),
   shown: function(slider, trigger){
     alert("After opened!");
