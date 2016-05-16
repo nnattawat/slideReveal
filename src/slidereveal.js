@@ -179,7 +179,18 @@
       } else {
         this.show(triggerEvents);
       }
+    },
+
+    remove: function() {
+      this.element.removeData('slide-reveal-model');
+      if (this.setting.trigger && this.setting.trigger.length > 0) {
+        this.setting.trigger.off('.slideReveal');
+      }
+      if (this.overlayElement && this.overlayElement.length > 0) {
+        this.overlayElement.remove();
+      }
     }
+
   });
 
   // jQuery collection methods
