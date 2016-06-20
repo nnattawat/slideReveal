@@ -6,6 +6,7 @@
     "jquery-plugin"
   ],
   "homepage": "https://github.com/nnattawat/slidereveal",
+  "main": "dist/jquery.slidereveal.js",
   "author": {
     "name": "Nattawat Nonsung",
     "email": "armmer1@gmail.com",
